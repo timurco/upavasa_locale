@@ -1,3 +1,8 @@
+# Enable relative imports https://fortierq.github.io/python-import/
+from pathlib import Path
+import sys
+sys.path.append(str(Path(__file__).parents[1]))
+
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackQueryHandler
 
 from bot.conversations.commands import *
