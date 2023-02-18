@@ -14,8 +14,8 @@ def str_choice(text, sep='|'):
 
 
 class Shuffler:
-    def __init__(self, *parts, shuffle=30):
-        self.shuffle = shuffle
+    def __init__(self, *parts, shuffle_max=30):
+        self.shuffle = shuffle_max
         self.parts = parts
 
     def sent_shuffle(self, tokens):
@@ -40,5 +40,5 @@ class Shuffler:
         return sep.join(parts) + (choice(last_rnd) if last_rnd else '')
 
 
-def shuffler(*parts, shuffle=30, last_rnd):
-    return Shuffler(*parts, shuffle).compile()
+def shuffler(*parts, shuffle_max=30):
+    return Shuffler(*parts, shuffle_max).compile()

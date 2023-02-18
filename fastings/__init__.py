@@ -1,14 +1,17 @@
-import ephem
 # Дата и время
-from datetime import date, datetime, time, timedelta
-from dateutil.relativedelta import relativedelta
-from dateutil import tz
-import sys, traceback
+import sys
+import traceback
+from datetime import datetime, timedelta
 
-# Local libraries
-from fastings.utc import offset
-from fastings.tithi import *
 from bot.services.logger import logger
+from fastings.tithi import *
+
+
+def offset():
+    d1 = datetime.now().replace(second=0, microsecond=0)
+    d2 = datetime.utcnow().replace(second=0, microsecond=0)
+    r = d1 - d2
+    return r
 
 
 # num – Количество: титей, которые нужны
@@ -53,7 +56,7 @@ def calculate_fastings(lat, long, num=2, period=30, step=30, tz_offset: timedelt
         # if math.floor((math.degrees(diff)%12)*100)/100 == 6:
         #     print(ephem.localtime(obs.date), math.degrees(diff))
         tithi = calculate_tithi(diff, 2)
-        return (tithi, diff)
+        return tithi, diff
 
     i = 0
     tithies = []
@@ -74,13 +77,15 @@ def calculate_fastings(lat, long, num=2, period=30, step=30, tz_offset: timedelt
                     (prev_tithi, obs.date.datetime() + tz_offset, 1)
                 )
                 i += 1
-            if i >= num * 2 and len(tithies[-1]) == 2: break
+            if i >= num * 2 and len(tithies[-1]) == 2:
+                break
         prev_tithi = tithi
 
     if len(tithies[-1]) != 2:
         tithies = tithies[:-1]
 
-    logger.info('🕘 Длительность расчёта: {}\tПолучено элементов: {}/{}'.format(datetime.now() - start_time, len(tithies), i))
+    logger.info(
+        '🕘 Длительность расчёта: {}\tПолучено элементов: {}/{}'.format(datetime.now() - start_time, len(tithies), i))
     result = []
     try:
         result = [{'name': TITHI_INFO[x[0][0]][0].lower(), 'start': x[0][1], 'end': x[1][1]} for x in tithies]

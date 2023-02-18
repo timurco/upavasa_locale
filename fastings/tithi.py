@@ -43,6 +43,7 @@ TITHI_INFO = [
     ("Amavasya", local_copy[0][0], local_copy[0][1]),
 ]
 
+
 def get_moon_sun_ra_difference(m, s):
     diff = ephem.degrees(m - s)
     if ephem.degrees("-6:00:00") <= diff < ephem.degrees("0:00:00"):
@@ -52,6 +53,7 @@ def get_moon_sun_ra_difference(m, s):
     else:
         result = diff
     return result
+
 
 def calculate_tithi(ra, method_to_use=2):
     def method_one(a):
@@ -72,5 +74,3 @@ def calculate_tithi(ra, method_to_use=2):
         t = -1
 
     return t
-
-

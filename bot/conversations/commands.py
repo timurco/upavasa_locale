@@ -4,12 +4,13 @@ import json
 import traceback
 
 import i18n
+from telegram import Update
 from telegram.constants import ParseMode
-from telegram.ext import ContextTypes, ConversationHandler, CallbackContext
+from telegram.ext import ConversationHandler, CallbackContext
 
-from bot import db, emo, logger
+from bot import db, emo, logger, User
 from bot.conversations import *
-from bot.utils import *
+from bot.settings import settings
 from bot.utils.emo import sad
 from bot.utils.phrases import namaskar, okay
 

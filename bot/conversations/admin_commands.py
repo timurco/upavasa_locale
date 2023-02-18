@@ -1,11 +1,11 @@
 import i18n
-from telegram.constants import ParseMode
-from telegram.ext import ContextTypes, ConversationHandler
+from telegram import Update
+from telegram.ext import ConversationHandler
 
-from bot import db
+from bot import db, User
 from bot.conversations import *
 from bot.conversations.notifications import every_time
-from bot.utils import *
+from bot.settings import settings
 
 
 async def admin_notify(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:

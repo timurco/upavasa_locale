@@ -3,6 +3,7 @@ from sqlalchemy import Column, Integer, String, Boolean, func, DateTime
 
 Base = declarative_base()
 
+
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)

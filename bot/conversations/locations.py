@@ -1,12 +1,13 @@
 import i18n
+from telegram import Update
 from telegram.constants import ParseMode
-from telegram.ext import ContextTypes, ConversationHandler
+from telegram.ext import ConversationHandler
 
-from bot import db
+from bot import db, User
 from bot.conversations import *
 from bot.conversations.commands import start, set_record
 from bot.services.weather import get_city
-from bot.utils import *
+from bot.settings import settings
 from bot.utils.phrases import okay
 
 

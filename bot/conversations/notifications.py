@@ -1,18 +1,17 @@
 from datetime import timedelta, datetime
 
-import pytz
 from humanize import naturaltime
 from telegram.constants import ParseMode
 from telegram.ext import ContextTypes
 
-from bot import User, db, logger, tf
+from bot import User, db, logger
 from bot.conversations import get_user_name
 from bot.settings import settings
 from bot.utils.humanization import gethumanday
+from bot.utils.i18n_start import t, set_lang
 from bot.utils.phrases import *
 from bot.utils.timezones import get_timezone, Timezone
 from fastings import calculate_fastings
-from bot.utils.i18n_start import t, set_lang
 
 
 async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, tz: Timezone):
@@ -74,18 +73,16 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE, safe=True):
 
         user_safe = safe
         if not safe and user.tg_id != settings.developer:
-            username = await get_user_name(user, context)
-            logger.info(
-                'Пользователь %s не девелопер' % username
-            )
             user_safe = True
+
+        username = await get_user_name(user, context)
 
         # Если прошло меньше N дней от последнего уведомления
         last_touch = datetime.utcnow() - user.last_touch
         if last_touch.days < 1 and user_safe:
             logger.info(
                 "Еще не время оповещать. " +
-                f"Пользователь: #{user.id}. " +
+                f"Пользователь: #{username}. " +
                 f"Последнее оповещение: {user.last_touch}, прошло всего {naturaltime(-last_touch)}")
             continue
 
@@ -103,4 +100,4 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE, safe=True):
             logger.warning("Невозможно определить временную зону у пользователя %s" % user.tg_id)
             await context.bot.send_message(user.tg_id, t('phrases.location_error'), parse_mode=ParseMode.HTML)
             user.last_touch = datetime.utcnow()
-            raise Exception(str(e) + '\n' + user.__repr__())
+            raise Exception(str(e) + '\n' + username)
