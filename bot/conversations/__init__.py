@@ -39,4 +39,6 @@ async def get_user_name(user, context: ContextTypes.DEFAULT_TYPE) -> Optional[st
     tg_user = await context.bot.get_chat_member(user.tg_id, user.tg_id)
     if not tg_user.user:
         return None
-    return '%s %s (%s)' % (tg_user.user.first_name,tg_user.user.last_name, tg_user.username)
+    if not tg_user.user.username:
+        return '%s %s' % (tg_user.user.first_name, tg_user.user.last_name)
+    return '%s %s (%s)' % (tg_user.user.first_name, tg_user.user.last_name, tg_user.username)
