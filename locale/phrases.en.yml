@@ -1,0 +1,7 @@
+en:
+  my_name: My name is <b>%{name}</b>.
+  amavasya_full: <b>The Amavasya</b> 🌑 (New moon)
+  purnima_full: <b>The Purnima</b> 🌕 (Full moon)
+  ekadashi_full: <b>The Ekadashi</b> 🌘 – eleventh day after the new moon or full moon, the most auspicious day for fasting
+  tithi_description: 'The Tithi start and end times:'
+  can_stop: You can unsubscribe from the notification list at any time using the /stop command.

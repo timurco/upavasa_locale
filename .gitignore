@@ -1,0 +1,15 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+**/__pycache__
+*.pyc
+# frontend
+
+# exception to the rule
+!tmp/.gitkeep
+.DS_store
+venv/
+env/
+.env
+.idea
+.idea/am-barnaul-bot.iml
+.idea/misc.xml
+/_requirements.txt

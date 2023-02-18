@@ -1,0 +1,92 @@
+import ephem
+# Дата и время
+from datetime import date, datetime, time, timedelta
+from dateutil.relativedelta import relativedelta
+from dateutil import tz
+import sys, traceback
+
+# Local libraries
+from fastings.utc import offset
+from fastings.tithi import *
+from bot.services.logger import logger
+
+
+# num – Количество: титей, которые нужны
+# period - Дни: Период на который нужно сделать расчёт
+# step - Секунды: Шаг расчета: чем меньше – тем дольше, но точнее
+def calculate_fastings(lat, long, num=2, period=30, step=30, tz_offset: timedelta = offset()):
+    utc_datetime = datetime.now() - tz_offset
+    start_time = datetime.now()  # Для расчета времени работы скрипта
+
+    logger.info(f"🕘 Начинаю расчёт голоданий для {lat}, {long} и UTC{'+' if tz_offset.seconds >= 0 else '-'}{offset()}")
+    # Observer
+    obs = ephem.Observer()
+    obs.lat, obs.lon = str(lat), str(long)
+    obs.date = utc_datetime
+    sun, moon = ephem.Sun(), ephem.Moon()
+
+    def dates_generator(start_date, end_date=None, delta=None):
+        if delta is None:
+            delta = timedelta(seconds=30)
+        if end_date is None:
+            end_date = start_date + timedelta(days=1)
+            end_date = end_date.replace(hour=0, minute=0, second=0, microsecond=0)
+
+        if start_date > end_date:
+            start_date, end_date = end_date, start_date
+
+        value = start_date
+
+        while value < end_date:
+            yield value
+            value += delta
+        return
+
+    # Calculation
+    dates = dates_generator(utc_datetime, end_date=utc_datetime + timedelta(days=period), delta=timedelta(seconds=step))
+
+    def compute_tithi(calc_date):
+        obs.date = calc_date
+        sun.compute(calc_date)
+        moon.compute(calc_date)
+        diff = get_moon_sun_ra_difference(moon.ra, sun.ra)
+        # if math.floor((math.degrees(diff)%12)*100)/100 == 6:
+        #     print(ephem.localtime(obs.date), math.degrees(diff))
+        tithi = calculate_tithi(diff, 2)
+        return (tithi, diff)
+
+    i = 0
+    tithies = []
+    (prev_tithi, _) = compute_tithi(utc_datetime)
+    for each_date in dates:
+        (tithi, diff) = compute_tithi(each_date)
+        # Если в списке содержится текущий или предыдущий титхи
+        if tithi != prev_tithi:
+            # 0 - Амавасья, 11 - Экадаши, 15 - Пурнима, 26 - Экадаши
+            if tithi in [0, 11, 15, 26]:
+                tithies.append([(tithi, obs.date.datetime() + tz_offset, 0)])
+                i += 1
+            if prev_tithi in [0, 11, 15, 26]:
+                if i == 0:
+                    prev_tithi = tithi
+                    continue
+                tithies[len(tithies) - 1].append(
+                    (prev_tithi, obs.date.datetime() + tz_offset, 1)
+                )
+                i += 1
+            if i >= num * 2 and len(tithies[-1]) == 2: break
+        prev_tithi = tithi
+
+    if len(tithies[-1]) != 2:
+        tithies = tithies[:-1]
+
+    logger.info('🕘 Длительность расчёта: {}\tПолучено элементов: {}/{}'.format(datetime.now() - start_time, len(tithies), i))
+    result = []
+    try:
+        result = [{'name': TITHI_INFO[x[0][0]][0].lower(), 'start': x[0][1], 'end': x[1][1]} for x in tithies]
+    except Exception as err:
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        err_msg = "❌ Ошибка при расчёте Титхи!\n%s: %s\n%s" % (exc_type, err, traceback.format_exc())
+        logger.error(err_msg, "Текущие данные:", *tithies, sep='\n')
+
+    return result
