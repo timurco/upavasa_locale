@@ -1,4 +1,7 @@
+from typing import Optional
+
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
+from telegram.ext import ContextTypes
 
 from bot.utils.i18n_start import t
 from bot.utils.phrases import all_days_string
@@ -30,3 +33,10 @@ def get_days_keyboard():
             InlineKeyboardButton(text=t('words.cancel'), callback_data=str(CANCEL)),
         ],
     ])
+
+
+async def get_user_name(user, context: ContextTypes.DEFAULT_TYPE) -> Optional[str]:
+    tg_user = await context.bot.get_chat_member(user.tg_id, user.tg_id)
+    if not tg_user.user:
+        return None
+    return '%s %s (%s)' % (tg_user.user.first_name,tg_user.user.last_name, tg_user.username)

@@ -6,6 +6,7 @@ from telegram.constants import ParseMode
 from telegram.ext import ContextTypes
 
 from bot import User, db, logger, tf
+from bot.conversations import get_user_name
 from bot.settings import settings
 from bot.utils.humanization import gethumanday
 from bot.utils.phrases import *
@@ -73,8 +74,9 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE, safe=True):
 
         user_safe = safe
         if not safe and user.tg_id != settings.developer:
+            username = await get_user_name(user, context)
             logger.info(
-                'Пользователь %d не девелопер' % user.tg_id
+                'Пользователь %d не девелопер' % username
             )
             user_safe = True
 
