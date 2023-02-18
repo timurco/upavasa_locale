@@ -73,6 +73,9 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE, safe=True):
 
         user_safe = safe
         if not safe and user.tg_id != settings.developer:
+            logger.info(
+                'Пользователь %d не девелопер' % user.tg_id
+            )
             user_safe = True
 
         # Если прошло меньше N дней от последнего уведомления
