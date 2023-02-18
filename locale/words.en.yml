@@ -19,6 +19,7 @@ en:
     many: Amavasyas
   all_days: "%{ekadashi}, %{purnima} and %{amavasya}"
   zero_days: Usubscribe
+  regarding: Regarding of your place of living (%{place})
   starts: will starts
   _and_now:
     - And now

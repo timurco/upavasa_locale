@@ -50,7 +50,7 @@ async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 async def donate(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     i18n.set("locale", update.effective_user.language_code)
-    msg = t('info.donate')
+    msg = t('info.donate_jamalpur')
     await context.bot.send_message(update.effective_user.id, msg, parse_mode=ParseMode.HTML)
     return ConversationHandler.END
 
