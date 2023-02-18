@@ -1,0 +1,14 @@
+[Unit]
+Description=UpavasaBot
+After=network.target
+
+[Service]
+ExecStart=/root/upavasabot/venv/bin/python bot
+ExecReload=/root/upavasabot/venv/bin/python bot
+WorkingDirectory=/root/upavasabot
+KillMode=process
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
