@@ -5,6 +5,7 @@ sys.path.append(str(Path(__file__).parents[1]))
 
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackQueryHandler
 
+from bot.conversations.admin_commands import *
 from bot.conversations.commands import *
 from bot.conversations.days import *
 from bot.conversations.fasting import *
@@ -17,6 +18,9 @@ application.add_handler(CommandHandler("help", help))
 application.add_handler(CommandHandler("donate", donate))
 application.add_handler(CommandHandler('stop', stop))
 application.add_handler(CommandHandler('get_fasting', demand_fasting))
+# admin commands
+application.add_handler(CommandHandler('admin_notify', admin_notify))
+
 application.add_handler(
     ConversationHandler(
         entry_points=[
