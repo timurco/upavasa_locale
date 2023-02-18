@@ -17,7 +17,18 @@ def offset():
 # num – Количество: титей, которые нужны
 # period - Дни: Период на который нужно сделать расчёт
 # step - Секунды: Шаг расчета: чем меньше – тем дольше, но точнее
-def calculate_fastings(lat, long, num=2, period=30, step=30, tz_offset: timedelta = offset()):
+def calculate_fastings(lat: float, long: float, num=2, period=30, step=30, tz_offset: timedelta = offset()):
+    """Расчитывает дни Экадаши, Амавасьи и Пурнимы исходя из Широты и Долготы
+
+        Args:
+            lat (:obj:`float`): Широта
+            long (:obj:`float`): Долгота
+            num (:obj:`int`): Количество: титей, которые нужны
+            period (:obj:`int`): Дни - период на который нужно сделать расчёт
+            step (:obj:`int`): Секунды - шаг расчета: чем меньше – тем дольше, но точнее
+            tz_offset (:obj:`timedelta`): Смещение для временной зоны
+
+        """
     utc_datetime = datetime.now() - tz_offset
     start_time = datetime.now()  # Для расчета времени работы скрипта
 

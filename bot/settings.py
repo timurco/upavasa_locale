@@ -11,6 +11,10 @@ class Settings(BaseSettings):
     # Interval for sending messages ( seconds )
     interval: int = 60 * 30
 
+    # Шаг расчета для Титхи в минутах для оповещений в секундах
+    # например: 3 * 60 * 60 - 3 часа
+    roug_calc_step: 3 * 60 * 60
+    exact_calc_step: 60
 
 load_dotenv()
 

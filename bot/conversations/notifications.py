@@ -16,7 +16,7 @@ from fastings import calculate_fastings
 
 async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, tz: Timezone):
     # Очень грубый расчет
-    f = calculate_fastings(lat=user.lat, long=user.long, num=2, step=60 * 60)
+    f = calculate_fastings(lat=user.lat, long=user.long, num=2, step=settings.roug_calc_step)
     logger.info("ℹ️ Ближайшее {}: 🗓 {:%A, %-d %B}".format(t('words.' + f[0]['name'], count=1), f[0]['start']))
 
     if user.days == 1 and not f[0]['name'] == 'ekadashi':
@@ -33,7 +33,7 @@ async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, t
         return
 
     # Делаем более точный перерасчёт
-    f = calculate_fastings(lat=user.lat, long=user.long, num=2, step=30, tz_offset=tz.utc)
+    f = calculate_fastings(lat=user.lat, long=user.long, num=2, step=settings.exact_calc_step, tz_offset=tz.utc)
 
     message = namaskar() + '\n'
     message += t('words.regarding', place=tz.place) + ',\n'
