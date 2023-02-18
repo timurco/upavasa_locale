@@ -13,8 +13,8 @@ class Settings(BaseSettings):
 
     # Шаг расчета для Титхи в минутах для оповещений в секундах
     # например: 3 * 60 * 60 - 3 часа
-    roug_calc_step: 3 * 60 * 60
-    exact_calc_step: 60
+    roug_calc_step: int = 3 * 60 * 60
+    exact_calc_step: int = 60
 
 load_dotenv()
 
