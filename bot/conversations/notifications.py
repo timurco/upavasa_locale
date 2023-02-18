@@ -76,7 +76,7 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE, safe=True):
         if not safe and user.tg_id != settings.developer:
             username = await get_user_name(user, context)
             logger.info(
-                'Пользователь %d не девелопер' % username
+                'Пользователь %s не девелопер' % username
             )
             user_safe = True
 
