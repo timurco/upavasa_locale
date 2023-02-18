@@ -90,7 +90,7 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE, safe=True):
 
         try:
             tz = get_timezone(user)
-            logger.info("Пользователь: %d, Локация: %s, Время: %s" % (user.tg_id, tz.place, tz.time))
+            logger.info("Пользователь: %d, Локация: %s, Время: %s" % (username, tz.place, tz.time))
             if (tz.time.hour < 7 or tz.time.hour > 22) and user_safe:
                 logger.info("🤫 Тихий час!")
                 return
