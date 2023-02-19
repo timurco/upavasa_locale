@@ -5,34 +5,36 @@ from i18n import translations, config
 from i18n.translator import pluralize, TranslationFormatter
 import i18n
 
-from bot import lang_codes
-from bot.services.logger import logger
-
 i18n.set('fallback', 'ru')
 i18n.load_path.append('locale')
+
+# Telegram languages code
+# refs:
+# - https://gist.github.com/jacobbubu/1836273
+# - https://stackoverflow.com/questions/3191664/list-of-all-locales-and-their-short-codes
+# Также мы используем humanize, у которого свой список языков:
+# - https://pypi.org/project/humanize/
 
 tg_lang_list = {
     'ru': 'ru_RU',
     'en': 'en_US',
-    'be': 'be_BY',
+    # 'be': 'be_BY', # не доступен в humanize
     'ca': 'ca_AD',
     'nl': 'nl_BE',
     'fr': 'fr_FR',
     'de': 'de_DE',
     'it': 'it_IT',
-    'ms': 'ms_MY',
+    # 'ms': 'ms_MY', # не доступен в humanize
     'pl': 'pl_PL',
     'pt': 'pt_BR',
     'es': 'es_ES',
     'tr': 'tr_TR',
     'uk': 'uk_UA',
-    'ro': 'ro_RO',
 }
 
 
 def set_lang(lang: str):
     i18n.set("locale", lang)
-    # print('Locale' + locale.getlocale(locale.LC_ALL))
 
     if lang == 'en':
         humanize.i18n.deactivate()
