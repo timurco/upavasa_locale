@@ -20,6 +20,7 @@ application.add_handler(CommandHandler('stop', stop))
 application.add_handler(CommandHandler('get_fasting', demand_fasting))
 # admin commands
 application.add_handler(CommandHandler('admin_notify', admin_notify))
+application.add_handler(CommandHandler('admin_tithi', admin_tithi))
 
 application.add_handler(
     ConversationHandler(
