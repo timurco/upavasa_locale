@@ -8,42 +8,38 @@ from bot import User, db, logger
 from bot.conversations import get_user_name
 from bot.settings import settings
 from bot.utils.humanization import gethumanday
-from bot.utils.i18n_start import t, set_lang
+from bot.utils.i18n_start import set_lang
 from bot.utils.phrases import *
 from bot.utils.timezones import get_timezone, Timezone
-from fastings import calculate_fastings
+from fastings.calculations import calculate_fasting_days
 
 
-async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, tz: Timezone):
-    # Очень грубый расчет
-    f = calculate_fastings(lat=user.lat, long=user.long, num=2, step=settings.roug_calc_step, tz_offset=tz.utc)
-    logger.info("ℹ️ Ближайшее {}: 🗓 {:%A, %-d %B}".format(t('words.' + f[0]['name'], count=1), f[0]['start']))
+async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, tz: Timezone, until: int = 2) -> bool:
+    f = calculate_fasting_days(tz.place)
+    first = f.iloc[0]
 
-    if user.days == 1 and not f[0]['name'] == 'ekadashi':
-        logger.info('Не экадаши')
-        return
+    if user.days == 1 and not first['tithi'] == 'ekadashi':
+        logger.debug('Не экадаши')
+        return False
 
-    fast_day = f[0]['start']
+    fast_day = first['starts']
     if fast_day.hour > 18:
         fast_day += timedelta(days=1)
 
-    until_event = fast_day - datetime.now()
-    if until_event.days > 2:
-        logger.info(f"❎🗓 Мероприятие начнётся только {naturaltime(-until_event)}")
-        return
-
-    # Делаем более точный перерасчёт
-    f = calculate_fastings(lat=user.lat, long=user.long, num=2, step=settings.exact_calc_step, tz_offset=tz.utc)
+    until_event = fast_day.replace(tzinfo=None) - tz.time
+    if until_event.days > until:
+        logger.debug(f"❎🗓 Мероприятие начнётся только {naturaltime(-until_event)}")
+        return False
 
     message = namaskar() + '\n'
     message += t('words.regarding', place=tz.place) + ',\n'
-    message += gethumanday(fast_day, tz.utc)
+    message += gethumanday(fast_day.replace(tzinfo=None), tz.utc)
     message += fast_day.strftime(' <b>(🗓 %-d %B)</b> ') + t('words.starts') + ' '
 
-    if f[0]['name'] == 'ekadashi':
+    if first['tithi'] == 'ekadashi':
         message += t('phrases.ekadashi_full')
     else:
-        if f[0]['name'] == 'purnima':
+        if first['tithi'] == 'purnima':
             message += t('phrases.purnima_full')
         else:
             message += t('phrases.amavasya_full')
@@ -51,7 +47,7 @@ async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, t
     message += expl() + '\n----\n'
 
     message += t('phrases.tithi_description') + "\n"
-    message += "<b>⌚ {:%-d %B, %H:%M} – ⌚ {:%-d %B, %H:%M}</b>".format(f[0]['start'], f[0]['end'])
+    message += "<b>⌚ {:%-d %B, %H:%M} – ⌚ {:%-d %B, %H:%M}</b>".format(first['starts'], first['ends'])
 
     message += '\n----\n'
 
@@ -59,12 +55,17 @@ async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, t
     message += '\n'
     message += t('phrases.can_stop')
 
+    username = await get_user_name(user, context)
+    logger.info(
+        f"🔔 Оповещение пользователя #{username}. " +
+        f"⌛️ Последнее {user.last_touch}, прошло {naturaltime(-(datetime.utcnow() - user.last_touch))}")
     await context.bot.send_message(user.tg_id, message, parse_mode=ParseMode.HTML)
     user.last_touch = datetime.utcnow()
     db.commit()
+    return True
 
 
-async def every_time(context: ContextTypes.DEFAULT_TYPE, safe=True):
+async def every_time(context: ContextTypes.DEFAULT_TYPE, safe=True) -> bool:
     users = db.query(User).all()
     for user in users:
         # Если пользователь отказался от уведомлений
@@ -80,7 +81,7 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE, safe=True):
         # Если прошло меньше N дней от последнего уведомления
         last_touch = datetime.utcnow() - user.last_touch
         if last_touch.days < 1 and user_safe:
-            logger.info(
+            logger.debug(
                 "Еще не время оповещать. " +
                 f"Пользователь: #{username}. " +
                 f"Последнее оповещение: {user.last_touch}, прошло всего {naturaltime(-last_touch)}")
@@ -88,16 +89,10 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE, safe=True):
 
         set_lang(user.lang_code)
 
-        try:
-            tz = get_timezone(user)
-            logger.info("Пользователь: %s, Локация: %s, Время: %s" % (username, tz.place, tz.time))
-            if (tz.time.hour < 7 or tz.time.hour > 22) and user_safe:
-                logger.info("🤫 Тихий час!")
-                return
+        tz = get_timezone(float(user.lat), float(user.long))
+        logger.debug("Пользователь: %s, Локация: %s, Время: %s" % (username, tz.place, tz.time))
+        if (tz.time.hour < 7 or tz.time.hour > 22) and user_safe:
+            logger.debug("🤫 Тихий час!")
+            return False
 
-            await fasting_notification(user, context, tz)
-        except Exception as e:
-            logger.warning("Невозможно определить временную зону у пользователя %s" % user.tg_id)
-            await context.bot.send_message(user.tg_id, t('phrases.location_error'), parse_mode=ParseMode.HTML)
-            user.last_touch = datetime.utcnow()
-            raise Exception(str(e) + '\n' + username)
+        return await fasting_notification(user, context, tz, 2 if safe else 10)

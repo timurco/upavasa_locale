@@ -55,22 +55,10 @@ def get_moon_sun_ra_difference(m, s):
     return result
 
 
-def calculate_tithi(ra, method_to_use=2):
-    def method_one(a):
-        return int(a / TITHI_SIZE_DEG) + 1
-
-    def method_two(a):
-        i = -1
-        for i, j in enumerate(local_copy):
-            if j[0] <= a <= j[1]:
-                break
-        return i
-
-    if method_to_use == 1:
-        t = method_one(ra)
-    elif method_to_use == 2:
-        t = method_two(ra)
-    else:
-        t = -1
-
-    return t
+def calculate_tithi(moon_ra, sun_ra):
+    diff = get_moon_sun_ra_difference(moon_ra, sun_ra)
+    tithi = -1
+    for tithi, j in enumerate(local_copy):
+        if j[0] <= diff <= j[1]:
+            break
+    return tithi, diff

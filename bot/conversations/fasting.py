@@ -5,10 +5,11 @@ from telegram.constants import ParseMode
 from telegram.ext import ContextTypes, ConversationHandler
 
 from bot import User, emo, logger, db
+from bot.conversations import get_user_name
 from bot.settings import settings
 from bot.utils.i18n_start import t, set_lang
 from bot.utils.timezones import get_timezone
-from fastings import calculate_fastings
+from fastings.calculations import calculate_fasting_days
 
 
 async def get_user_fasting(user: User, context: ContextTypes.DEFAULT_TYPE):
@@ -18,24 +19,31 @@ async def get_user_fasting(user: User, context: ContextTypes.DEFAULT_TYPE):
         parse_mode=ParseMode.HTML
     )
 
-    f = calculate_fastings(lat=float(user.lat), long=float(user.long), num=4)
+    username = await get_user_name(user, context)
+    logger.info(
+        f"📡 Пользователь #{username} " +
+        f"⌛️ запросил расчет {user.last_demand}")
+
+    tz = get_timezone(float(user.lat), float(user.long))
+    f = calculate_fasting_days(tz.place)
     fasting_message = ""
-    for fasting in f:
-        is_ekadashi = fasting['name'] == 'ekadashi'
+    for _, fasting in f.iterrows():
+        is_ekadashi = fasting['tithi'] == 'ekadashi'
         if user.days == 1 and is_ekadashi:
             continue
-        this_row = '\n<u>' + t('words.' + fasting['name'], count=1)
-        this_row += "</u>:\n⌚ {:%-d %B, %H:%M} – ⌚ {:%-d %B, %H:%M}".format(
-            fasting['start'],
-            fasting['end'])
+        this_row = '\n'
+        this_row += t('words.' + fasting['tithi'], count=1)
+        this_row += ":\n⌚ {:%-d %B, %H:%M} – ⌚ {:%-d %B, %H:%M}".format(
+            fasting['starts'],
+            fasting['ends'])
 
         fasting_message += '<b>' + this_row + '</b>' if is_ekadashi else this_row
 
-    tz = get_timezone(user)
+    tz = get_timezone(float(user.lat), float(user.long))
     msg = t('phrases.tithi_answer',
             place=tz.place,
             utc='%+d' % int(tz.utc.seconds/60/60),
-            )
+            ) + '\n'
     msg += fasting_message
     await last_message.edit_text(msg, parse_mode=ParseMode.HTML)
 
@@ -51,7 +59,7 @@ async def demand_fasting(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
     last_demand = datetime.datetime.utcnow() - user.last_demand
     if last_demand.seconds // 60 < 10 and user.tg_id != settings.developer:
-        logger.info(f"Последний запрос (минуты): {last_demand.seconds // 60}")
+        logger.debug(f"Последний запрос (минуты): {last_demand.seconds // 60}")
         await update.message.reply_text(t('phrases.to_early') + emo.get(emo.namo), parse_mode=ParseMode.HTML)
         return ConversationHandler.END
 

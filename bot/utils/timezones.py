@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import pytz
 from pydantic import BaseModel
 
-from bot import User, tf
+from bot import tf
 
 
 class Timezone(BaseModel):
@@ -12,8 +12,8 @@ class Timezone(BaseModel):
     utc: timedelta
 
 
-def get_timezone(user: User) -> Timezone:
-    timezone_str = tf.certain_timezone_at(lat=float(user.lat), lng=float(user.long))
+def get_timezone(lat: float, long: float) -> Timezone:
+    timezone_str = tf.certain_timezone_at(lat=lat, lng=long)
     timezone = pytz.timezone(timezone_str)
     dt = datetime.utcnow()
     current_time = dt + timezone.utcoffset(dt)
