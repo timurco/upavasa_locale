@@ -16,20 +16,20 @@ i18n.load_path.append('locale')
 # - https://pypi.org/project/humanize/
 
 tg_lang_list = {
-    'ru': 'ru_RU',
-    'en': 'en_US',
+    'ru': 'ru_RU',  # Russian (Russia)
+    'en': 'en_US',  # English (United States)
     # 'be': 'be_BY', # не доступен в humanize
-    'ca': 'ca_AD',
-    'nl': 'nl_BE',
-    'fr': 'fr_FR',
-    'de': 'de_DE',
-    'it': 'it_IT',
+    'ca': 'ca_ES',  # Catalan (Spain)
+    'nl': 'nl_NL',  # Dutch (Netherlands)
+    'fr': 'fr_FR',  # French (France)
+    'de': 'de_DE',  # German (Germany)
+    'it': 'it_IT',  # Italian (Italy)
     # 'ms': 'ms_MY', # не доступен в humanize
-    'pl': 'pl_PL',
-    'pt': 'pt_BR',
-    'es': 'es_ES',
-    'tr': 'tr_TR',
-    'uk': 'uk_UA',
+    'pl': 'pl_PL',  # Polish (Poland)
+    'pt': 'pt_PT',  # Portuguese (Portugal)
+    'es': 'es_ES',  # Spanish (Spain)
+    'tr': 'tr_TR',  # Turkish (Turkey)
+    'uk': 'uk_UA',  # Ukrainian (Ukraine)
 }
 
 
