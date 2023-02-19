@@ -32,7 +32,7 @@ def calculate_fastings(lat: float, long: float, num=2, period=30, step=30, tz_of
     utc_datetime = datetime.now() - tz_offset
     start_time = datetime.now()  # Для расчета времени работы скрипта
 
-    logger.info(f"🕘 Начинаю расчёт голоданий для {lat}, {long} и UTC{'+' if tz_offset.seconds >= 0 else '-'}{offset()}")
+    logger.info(f"🕘 Начинаю расчёт голоданий для {lat}, {long} и UTC{'+' if tz_offset.seconds >= 0 else '-'}{tz_offset.seconds//60//60}")
     # Observer
     obs = ephem.Observer()
     obs.lat, obs.lon = str(lat), str(long)
