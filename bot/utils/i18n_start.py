@@ -11,6 +11,24 @@ from bot.services.logger import logger
 i18n.set('fallback', 'ru')
 i18n.load_path.append('locale')
 
+tg_lang_list = {
+    'ru': 'ru_RU',
+    'en': 'en_US',
+    'be': 'be_BY',
+    'ca': 'ca_AD',
+    'nl': 'nl_BE',
+    'fr': 'fr_FR',
+    'de': 'de_DE',
+    'it': 'it_IT',
+    'ms': 'ms_MY',
+    'pl': 'pl_PL',
+    'pt': 'pt_BR',
+    'es': 'es_ES',
+    'tr': 'tr_TR',
+    'uk': 'uk_UA',
+    'ro': 'ro_RO',
+}
+
 
 def set_lang(lang: str):
     i18n.set("locale", lang)
@@ -21,15 +39,14 @@ def set_lang(lang: str):
         locale.setlocale(locale.LC_TIME, 'en_US')
 
     else:
-        lang_code = lang_codes[lang]
-        try:
+        if lang in tg_lang_list.keys():
+            lang_code = tg_lang_list[lang]
             locale.setlocale(locale.LC_TIME, lang_code)
-
             humanize.i18n.activate(lang)
-        except:
-            logger.error("Ошибка с локализацией: %s - %s" % (lang, lang_code))
+        else:
             locale.setlocale(locale.LC_TIME, 'en_US')
             humanize.i18n.deactivate()
+            raise Exception("Ошибка с локализацией: %s - %s" % (lang, lang))
 
 
 def translate(key, **kwargs):
