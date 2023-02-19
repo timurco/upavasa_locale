@@ -28,7 +28,7 @@ async def no_location(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
 async def text_location(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     i18n.set("locale", update.effective_user.language_code)
     message = await update.message.reply_text(t('words._moment'))
-    loc = get_city(update.message.text)
+    loc = await get_city(update.message.text)
 
     if not loc:
         await message.edit_text(t('phrases.something_wrong') + '. ' + t('phrases.try_again'))
