@@ -1,49 +1,49 @@
 en:
   my_name: My name is <b>%{name}</b>.
-  amavasya_full: <b>The Amavasya</b> 🌑 (New moon)
-  purnima_full: <b>The Purnima</b> 🌕 (Full moon)
-  ekadashi_full: <b>The Ekadashi</b> 🌘 – eleventh day after the new moon or full moon, the most auspicious day for fasting
+  amavasya_full: <b>Amavasya</b> 🌑 (New moon)
+  purnima_full: <b>Purnima</b> 🌕 (Full moon)
+  ekadashi_full: <b>Ekadashi</b> 🌘 – eleventh day after the new moon or full moon, the most auspicious day for fasting
   tithi_description: >-
     The Tithi start and end times:
   can_stop: You can unsubscribe from the notification list at any time using the /stop command.
   mission: >
-    Я здесь для того, чтобы рассчитывать дни голодания
-    (<i>Экадаши, Амавасьи, Пурнимы</i>)
-    согласно твоему месту проживания.
+    I'm here to count the days of fasting
+     (<i>Ekadashi, Amavasya, Purnima</i>)
+     according to your location.
   start_choose_location: >
-    Пожалуйста, нажми на скрепку (где обычно прикрепляют файлы)
-    и выбери <b>Location</b> или <b>Местоположение</b>
-    или просто <b>введи название города</b> или места
-  location_first: Для начала добавь локацию через команду /start
-  ready_to_send: За день до %{days}, я буду присылать тебе напоминания о них.
-  to_danate: Если ты вдруг захочешь пожертвовать, то вот здесь можно узнать подробности /donate 🙃
+    Please click on the paperclip (where files are usually attached)
+   and choose <b>Location</b> 
+    or just <b>enter the name of the city</b> or location
+  location_first: To get started, add a location through the command /start
+  ready_to_send: The day before %{days}, I will send you reminder.
+  to_danate: If you would like to donate, please click here for details. /donate 🙃
   days_update: >
-    Ты сможешь обновить дни в которые голодаешь в любой момент, через команду /update_days
+    You can update the days you are fasting at any time through the command /update_days
   start_choose_day: >
-    %{and_now}, давай выберем день, когда ты хочешь получать уведомления о голоданиях.
+    %{and_now}, let's choose the day you want to receive fasting notifications.
   location_update: >
-    Ты сможешь обновить свою локацию в любой момент, через команду /update_location
-  set_location: Твоя локация обновлена!
+    You can update your location at any time through the command /update_location
+  set_location: Your location has been updated!
   no_user: >
-    Тебя нету у меня в списке. Так что тут нечего останавливать.
-    Но если захочешь, можно начать уведомления через /start
-  stop: Я отменил твою подписку на уведомления.
-  again: Нажми на /start если снова захочешь запустить эти процессы
-  try_again: Попробуй снова!
-  something_wrong: Что-то не так с этим запросом
-  check_location: Проверь, верно ли я обнаружил твою позицию?
+    You are not on my list. So there is nothing to stop here.
+    But if you want, you can start notifications via /start
+  stop: I canceled your notification subscription..
+  again: Press /start if you want to start again
+  try_again: Try again!
+  something_wrong: Something is wrong with this request
+  check_location: Check if I found your location correctly?
   no_answer: >
-    Без вариантов ответа я, к сожалению, не смогу рассчитывать дни голоданий
+   Without answer options, I, unfortunately, will not be able to calculate the days of fasting
   to_early: >
-    Пожалуйста, не нагружай меня так часто с расчетами.
-    Эти цифры, синусы, косинусы... От этого уже начинает болеть голова.
-    Подожди хотя бы несколько минут!
+    Please don't burden me so often with calculations.
+    These numbers, sines, cosines ... This is already starting to hurt my head.
+    Wait few minutes!
   meet_first: |
-    Для начала, мне нужны твое местоположения и какие дни для голодания тебе нужны.
-    Нажми на /start чтобы начать.
+    First, I need your location and what days you want to fast.
+    Press /start to begin.
   tithi_answer: |-
-    Ближайшие благоприятные дни голоданий для <b>%{place}</b> (UTC%{utc}):
-  tithi_wait: Секунду, сейчас взгляну на небо. Нужно провести расчёты... X*y*sin*cos*tan*E*pi/2...
+    The next auspicious days of fasting for <b>%{place}</b> (UTC%{utc}):
+  tithi_wait: Wait a second, I'll look at the sky. Need to do the calculations... X*y*sin*cos*tan*E*pi/2...
   location_error: |
-    Что-то не так с координатами. Не могу считать.
-    Попробуй обновить свою локацию через команду /update_location',
+    Something is wrong with the coordinates. I can't calculate.
+    Try to update your location through the command /update_location',

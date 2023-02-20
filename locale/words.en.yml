@@ -9,33 +9,33 @@ en:
     - human
   ekadashi:
     one: Ekadashi
-    many: Ekadashis
+    many: Dates of Ekadashi
   only_ekadashi: Just %{ekadashi}
   purnima:
     one: Purnima
-    many: Purnimas
+    many: Dates of Purnima
   amavasya:
     one: Amavasya
-    many: Amavasyas
+    many: Dates of Amavasya
   all_days: "%{ekadashi}, %{purnima} and %{amavasya}"
   zero_days: Unsubscribe
   regarding: According to your location (%{place})
-  starts: will starts
+  starts: will start
   _and_now:
     - And now
-    - Nnow
+    - Now
   cancel: Cancel
   yes_answer: Yes
   no_answer: No
   _moment:
-    - One seconds...
+    - One second...
     - One moment...
     - Please wait...
-    - Please one moment...
+    - One moment, please...
   _ok:
     - Clear
     - Accept
     - Right
     - Okay
-    - Superb
+    - Super
     - Nice

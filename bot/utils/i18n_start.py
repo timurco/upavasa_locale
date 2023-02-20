@@ -5,7 +5,7 @@ from i18n import translations, config
 from i18n.translator import pluralize, TranslationFormatter
 import i18n
 
-i18n.set('fallback', 'ru')
+i18n.set('fallback', 'en')
 i18n.load_path.append('locale')
 
 # Telegram languages code

@@ -1,21 +1,21 @@
-en:
-   help: |
-      %{my_name}
-      %{mission}
-      <b>В твоем распоряжении доступны следующие команды:</b>
-      • /help - Этот текст
-      • /start - Начать еще раз вносить настройки (Локацию и день)
-      • /cancel - Отменить ввод настроек
-      • /update_days - Обновить дни голодания. Экадаши, или Экадаши, Пурнимы и Амавасьи
-      • /update_location - Обновить свое местоположение
-      • /get_fasting - Рассчитать и получить список ближайших голоданий в соответствии с моим местоположением
-      • /stop - Убрать себя из рассылки
-      • /donate - Показать куда можно жертвовать
-   donate_jamalpur: |
-      Сейчас происходит строительство одного очень вдохновляющего проекта,
-      под названием <a href='https://meditationsteps-center.de/jamalpur'>Ананда Самбхути</a>!
-      Мне будет очень приятно, если ты сможешь поддержать его! 🙏
-      В комментариях платежа можешь дополнить что ты от бота Упаваса. Спасибо!
-      
-      <b>Вот ссылка на него:</b>
-      https://meditationsteps-center.de/jamalpur
+ru:
+  help: |
+    %{my_name}
+    %{mission}
+    <b>The following commands are available:</b>
+    • /help - This text
+    • /start - To change settings (location and day)
+    • /cancel - Cancel settings entry
+    • /update_days - Update fasting days. Ekadashi, or Ekadashi, Purnima and Amavasya
+    • /update_location - Update your location
+    • /get_fasting - Calculate and get a list of upcoming fasts according to my location (<i>there is a restriction - no more than 1 request per 10 minutes.</i>) 
+    • /stop - Remove yourself from mailing list
+    • /donate - Show where you can donate
+  donate_jamalpur: |
+    A very inspiring project is currently under construction
+    entitled <a href='https://meditationsteps-center.de/jamalpur'>Ananda Sambhuti</a>!
+    I will be very pleased if you can support it! 🙏
+    In the payment comments, you can add that you are from the Upavas bot. Thank you!
+
+    <b>Here is the link:</b>
+    https://meditationsteps-center.de/jamalpur
