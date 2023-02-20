@@ -5,7 +5,7 @@ from pydantic import BaseSettings
 class Settings(BaseSettings):
     token: str
     weather_token: str
-    location_pic: str = str('./data/location.png')
+    location_pic: str = str('./data/location.jpg')
     database_url: str = 'postgresql://postgres:@localhost/botsociety'
     developer: int = 1240012
     # Interval for sending messages ( seconds )

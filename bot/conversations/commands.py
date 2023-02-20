@@ -114,7 +114,8 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
 
 
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    i18n.set("locale", update.effective_user.language_code)
+    user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
+    i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
 
     context.user_data.clear()
 
