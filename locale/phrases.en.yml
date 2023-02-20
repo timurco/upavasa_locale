@@ -12,7 +12,7 @@ en:
     according to your location.
   start_choose_location: >
     Please click on the paperclip (where files are usually attached)
-    and choose <b>Location</b> 
+    and choose <b>Location</b>
     or just <b>enter the name of the city</b> or location
   location_first: To get started, add a location through the command /start
   ready_to_send: The day before %{days}, I will send you reminder.

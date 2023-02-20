@@ -12,7 +12,9 @@ from bot.utils.phrases import okay
 
 
 async def no_location(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    i18n.set("locale", update.effective_user.language_code)
+    user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
+    i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
+
     msg = t('phrases.try_again')
     if update.callback_query:
         try:
@@ -26,7 +28,9 @@ async def no_location(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
 
 
 async def text_location(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    i18n.set("locale", update.effective_user.language_code)
+    user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
+    i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
+
     message = await update.message.reply_text(t('words._moment'))
     loc = await get_city(update.message.text)
 
@@ -37,6 +41,7 @@ async def text_location(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
     context.user_data['probably_location'] = loc
     await message.delete()
     await update.message.reply_location(loc[0], loc[1])
+    print(t('words.cancel'))
     await update.message.reply_text(t('phrases.check_location'), reply_markup=get_confirm_keyboard())
     return LOC_CONFIRMATION
 
@@ -57,7 +62,9 @@ async def update_location(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 
 
 async def location(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    i18n.set("locale", update.effective_user.language_code)
+    user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
+    i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
+
     if update.callback_query and int(update.callback_query.data) == YES:
         context.user_data['location'] = context.user_data['probably_location']
     else:

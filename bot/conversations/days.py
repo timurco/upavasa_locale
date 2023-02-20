@@ -10,6 +10,9 @@ from bot.utils.phrases import okay
 
 
 async def ekadashi(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
+    i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
+
     context.user_data['days'] = 1
     msg = okay() + t('phrases.ready_to_send', days=t('words.ekadashi'))
     msg += '\n'
@@ -19,6 +22,8 @@ async def ekadashi(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 
 async def all_days(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
+    i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
     context.user_data['days'] = 2
     await set_record(update, context)
     msg = okay() + t('phrases.ready_to_send', days=all_days_string())

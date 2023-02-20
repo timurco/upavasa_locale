@@ -41,7 +41,8 @@ async def error_handler(update: object, context: CallbackContext) -> None:
 
 
 async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    i18n.set("locale", update.effective_user.language_code)
+    user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
+    i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
     msg = t('info.help',
             mission=t('phrases.mission'),
             my_name=t('phrases.my_name', name=t('words.name')))
@@ -50,16 +51,21 @@ async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 
 async def donate(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    i18n.set("locale", update.effective_user.language_code)
+    user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
+    i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
+
     msg = t('info.donate_jamalpur')
     await context.bot.send_message(update.effective_user.id, msg, parse_mode=ParseMode.HTML)
     return ConversationHandler.END
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    user = update.effective_user
-    i18n.set("locale", user.language_code)
-    msg = namaskar('%s') % user.mention_html()
+    context.user_data.clear()
+
+    user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
+    i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
+
+    msg = namaskar('%s') % update.effective_user.mention_html()
     msg += '\n'
     msg += t('phrases.mission')
     msg += '\n'
@@ -70,15 +76,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         msg,
         parse_mode=ParseMode.HTML,
     )
-    logger.info(user)
-    context.user_data.clear()
     return LOCATION
 
 
 async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active: bool = True) -> int:
-    i18n.set("locale", update.effective_user.language_code)
-    logger.info(f"Пробуем добавить или изменить нового пользователя: {context.user_data}")
+
+    logger.debug(f"Пробуем добавить или изменить нового пользователя: {context.user_data}")
     user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
+    i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
     if user:
         if 'location' in context.user_data.keys():
             user.lat = str(context.user_data['location'][0])
@@ -86,7 +91,10 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
         if 'days' in context.user_data.keys():
             user.days = context.user_data['days']
         user.active = active
-        logger.info(f"✅️ Пользователь изменил данные: {user}")
+        username = await get_user_name(user, context)
+        logger.debug(f"✅️ Пользователь изменил данные: {username}")
+        # если пользователь изменил язык
+        user.lang_code = update.effective_user.language_code
         user.last_demand = datetime.datetime.utcnow() - datetime.timedelta(hours=3)
         user.last_touch = datetime.datetime.utcnow() - datetime.timedelta(hours=3)
     else:
@@ -98,7 +106,8 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
             days=context.user_data['days'],
             active=True,
         )
-        logger.info(f"❇️ У нас новый пользователь: {user}")
+        username = await get_user_name(user, context)
+        logger.info(f"❇️ У нас новый пользователь: {username}")
     db.add(user)
     db.commit()
     return ConversationHandler.END
@@ -126,12 +135,10 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 
 async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    i18n.set("locale", update.effective_user.language_code)
-
     context.user_data.clear()
 
     user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
-
+    i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
     if not user:
         await update.message.reply_text(t('phrases.no_user'))
     else:
