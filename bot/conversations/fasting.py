@@ -50,12 +50,13 @@ async def get_user_fasting(user: User, context: ContextTypes.DEFAULT_TYPE):
 
 async def demand_fasting(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     context.user_data.clear()
-    set_lang(update.effective_user.language_code)
 
     user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
     if not user:
         await update.message.reply_text(t('phrases.meet_first'), parse_mode=ParseMode.HTML)
         return ConversationHandler.END
+
+    set_lang(user.lang_code)
 
     last_demand = datetime.datetime.utcnow() - user.last_demand
     if last_demand.seconds < 30 and user.tg_id != settings.developer:
