@@ -90,7 +90,7 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE, safe=True) -> bool:
         set_lang(user.lang_code)
 
         tz = get_timezone(float(user.lat), float(user.long))
-        logger.debug("Пользователь: %s, Локация: %s, Время: %s" % (username, tz.place, tz.time))
+        logger.info("Пользователь: %s, Локация: %s, Время: %s" % (username, tz.place, tz.time))
         print(tz.time.hour)
         print(tz.time.hour < 7 or tz.time.hour > 22)
         print(user_safe)
