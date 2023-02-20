@@ -41,7 +41,6 @@ async def text_location(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
     context.user_data['probably_location'] = loc
     await message.delete()
     await update.message.reply_location(loc[0], loc[1])
-    print(t('words.cancel'))
     await update.message.reply_text(t('phrases.check_location'), reply_markup=get_confirm_keyboard())
     return LOC_CONFIRMATION
 
