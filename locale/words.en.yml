@@ -18,8 +18,8 @@ en:
     one: Amavasya
     many: Amavasyas
   all_days: "%{ekadashi}, %{purnima} and %{amavasya}"
-  zero_days: Usubscribe
-  regarding: Regarding of your place of living (%{place})
+  zero_days: Unsubscribe
+  regarding: According to your location (%{place})
   starts: will starts
   _and_now:
     - And now
