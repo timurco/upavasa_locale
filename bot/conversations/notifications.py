@@ -81,7 +81,7 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE, safe=True) -> bool:
         # Если прошло меньше N дней от последнего уведомления
         last_touch = datetime.utcnow() - user.last_touch
         if last_touch.days < 1 and user_safe:
-            logger.info(
+            logger.debug(
                 "Еще не время оповещать. " +
                 f"Пользователь: #{username}. " +
                 f"Последнее оповещение: {user.last_touch}, прошло всего {naturaltime(-last_touch)}")
@@ -90,12 +90,10 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE, safe=True) -> bool:
         set_lang(user.lang_code)
 
         tz = get_timezone(float(user.lat), float(user.long))
-        logger.info("Пользователь: %s, Локация: %s, Время: %s" % (username, tz.place, tz.time))
-        print(tz.time.hour)
-        print(tz.time.hour < 7 or tz.time.hour > 22)
-        print(user_safe)
+        logger.debug("Пользователь: %s, Локация: %s, Время: %s" % (username, tz.place, tz.time))
         if (tz.time.hour < 7 or tz.time.hour > 22) and user_safe:
-            logger.info("🤫 Тихий час!")
-            return False
+            logger.debug("🤫 Тихий час!")
+            continue
 
         return await fasting_notification(user, context, tz, 2 if safe else 10)
+    return False
