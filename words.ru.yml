@@ -1,0 +1,44 @@
+ru:
+  name: Упаваса Бот
+  today: сегодня
+  tomorrow: завтра
+  aftertomorrow: послезавтра
+  namaskar: намаскар
+  friend:
+    - друг
+    - человек
+  ekadashi:
+    one: Экадаши
+    many: Экадаши
+  only_ekadashi: Только %{ekadashi}
+  purnima:
+    one: Пурнима
+    many: Пурнимы
+  amavasya:
+    one: Амавасья
+    many: Амавасьи
+  all_days: "%{ekadashi} и %{purnima} и %{amavasya}"
+  zero_days: Отказаться от уведомлений
+  regarding: Согласно твоему месту проживания (%{place})
+  starts: начнётся
+  _and_now:
+    - А сейчас
+    - А теперь
+    - Сейчас
+    - Теперь
+  cancel: Отмена
+  yes_answer: Да
+  no_answer: Нет
+  _moment:
+    - Секунду...
+    - Секундочку...
+    - Подожди...
+    - Погоди...
+  _ok:
+    - Принято
+    - Ясно
+    - Понял
+    - Отлично
+    - Супер
+    - Класс
+    - Кайф

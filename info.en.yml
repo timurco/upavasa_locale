@@ -1,0 +1,21 @@
+en:
+  help: |
+    %{my_name}
+    %{mission}
+    <b>The following commands are available:</b>
+    • /help - Information about commands
+    • /start - Start adding settings again or edit the current (Location and day)
+    • /cancel - Cancel data entry
+    • /update_days - Update fasting days. Ekadashi, or Ekadashi, Purnima and Amavasya
+    • /update_location - Update your location
+    • /get_fasting - Calculate and get a list of upcoming fasts according to my location (<i>there is a restriction - no more than 1 request per 10 minutes.</i>) 
+    • /stop - Remove yourself from mailing list
+    • /donate - Show where you can donate
+  donate_jamalpur: |
+    A very inspiring project is currently under construction
+    entitled <a href='https://meditationsteps-center.de/jamalpur'>Ananda Sambhuti</a>!
+    I will be very pleased if you can support it! 🙏
+    In the payment comments, you can add that you are from the Upavas bot. Thank you!
+
+    <b>Here is the link:</b>
+    https://meditationsteps-center.de/jamalpur

@@ -1,0 +1,52 @@
+en:
+  my_name: My name is <b>%{name}</b>.
+  amavasya_full: <b>Amavasya</b> 🌑 (New moon)
+  purnima_full: <b>Purnima</b> 🌕 (Full moon)
+  ekadashi_full: <b>Ekadashi</b> 🌘 – eleventh day after the new moon or full moon, the most auspicious day for fasting
+  tithi_description: >-
+    The Tithi start and end times:
+  can_stop: You can unsubscribe from the notification list at any time using the /stop command.
+  mission: >
+    I'm here to count the days of fasting
+    (<i>Ekadashi, Amavasya, Purnima</i>)
+    according to your location.
+  start_choose_location: >
+    Please click on the paperclip (where files are usually attached)
+    and choose <b>Location</b>
+    or just <b>enter the name of the city</b> or location
+  location_first: To get started, add a location through the command /start
+  ready_to_send: The day before %{days}, I will send you reminder.
+  to_danate: If you would like to donate, please click here for details. /donate 🙃
+  days_update: >
+    You can update the days you are fasting at any time through the command /update_days
+  start_choose_day: >
+    %{and_now}, let's choose the fasting days for which you want to receive notifications.
+  location_update: >
+    You can update your location at any time through the command /update_location
+  set_location: Your location has been updated!
+  no_user: >
+    You are not on my list. So there is nothing to stop here.
+    But if you want, you can start notifications via /start
+  no_send: >-
+    I won't send you notifications, but you can use the /get_fasting command
+    at any time to get a list of upcoming fasting days according to your location!
+  stop: I canceled your notification subscription..
+  again: Press /start if you want to start again
+  try_again: Try again!
+  something_wrong: Something is wrong with this request
+  check_location: Check if I found your location correctly?
+  no_answer: >
+    Without answer options, I, unfortunately, will not be able to calculate the days of fasting
+  to_early: >
+    Please don't burden me so often with calculations.
+    These numbers, sines, cosines ... This is already starting to hurt my head.
+    Wait few minutes!
+  meet_first: |
+    First, I need your location and what days you want to fast.
+    Press /start to begin.
+  tithi_answer: |-
+    The next auspicious days of fasting for <b>%{place}</b> (UTC%{utc}):
+  tithi_wait: Wait a second, I'll look at the sky. Need to do the calculations... X*y*sin*cos*tan*E*pi/2...
+  location_error: |
+    Something is wrong with the coordinates. I can't calculate.
+    Try to update your location through the command /update_location',
