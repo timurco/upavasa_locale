@@ -19,13 +19,13 @@ async def admin_messages(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         return ConversationHandler.END
 
     ids = [
-        888583726, 184695223, 775274111, 1061480705, 1061480705,
+        888583726, 775274111, 1061480705,
         settings.developer]
     for id in ids:
         try:
             developer = await context.bot.get_chat_member(settings.developer, settings.developer)
             tg_user = await context.bot.get_chat_member(id, id)
-            await context.bot.send_message(update.effective_user.id,
+            await context.bot.send_message(id,
                f'Намаскар, {tg_user.user.mention_html()}! ' +
                'Была ошибка при которой у тебя не получилось зарегистрироваться, ' +
                'можешь пожалуйста снова нажать на команду /start чтобы еще раз начать регистрацию? Спасибо!\n\n' +
