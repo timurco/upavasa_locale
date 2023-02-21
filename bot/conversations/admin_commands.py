@@ -1,9 +1,6 @@
 import i18n
-from telegram import Update
-from telegram.constants import ParseMode
 from telegram.ext import ConversationHandler
 
-from bot import db, User
 from bot.conversations import *
 from bot.conversations.notifications import every_time
 from bot.services.logger import logger

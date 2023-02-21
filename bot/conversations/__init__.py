@@ -1,6 +1,7 @@
 from typing import Optional
 
-from telegram import InlineKeyboardMarkup, InlineKeyboardButton
+from telegram import InlineKeyboardMarkup, InlineKeyboardButton, Update
+from telegram.constants import ParseMode
 from telegram.ext import ContextTypes
 
 from bot.utils.i18n_start import t
@@ -26,7 +27,7 @@ def get_days_keyboard():
     return InlineKeyboardMarkup([
         [
             InlineKeyboardButton(text='🌘 ' + t('words.only_ekadashi',
-                                        ekadashi=t('words.ekadashi', count=2)), callback_data=str(EKADASHI)),
+                                               ekadashi=t('words.ekadashi', count=2)), callback_data=str(EKADASHI)),
             InlineKeyboardButton(text='🌑🌒🌕 ' + all_days_string(), callback_data=str(ALLDAYS)),
         ], [
             InlineKeyboardButton(text='🚫 ' + t('words.zero_days'), callback_data=str(ZERODAYS)),
@@ -42,4 +43,16 @@ async def get_user_name(user, context: ContextTypes.DEFAULT_TYPE) -> Optional[st
     if not tg_user.user.username:
         return '%d: %s %s' % (user.id if user.id else -1, tg_user.user.first_name, tg_user.user.last_name)
 
-    return '%d: %s %s (%s)' % (user.id if user.id else -1, tg_user.user.first_name, tg_user.user.last_name, tg_user.user.username)
+    return '%d: %s %s (%s)' % (
+    user.id if user.id else -1, tg_user.user.first_name, tg_user.user.last_name, tg_user.user.username)
+
+
+async def replace_message(message: str, update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if update.callback_query:
+        try:
+            await update.callback_query.edit_message_text(message, parse_mode=ParseMode.HTML)
+        except:
+            await update.callback_query.delete_message()
+            await context.bot.send_message(update.effective_user.id, message, parse_mode=ParseMode.HTML)
+    else:
+        await update.message.reply_text(message, parse_mode=ParseMode.HTML)

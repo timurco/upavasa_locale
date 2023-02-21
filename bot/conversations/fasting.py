@@ -54,8 +54,6 @@ async def get_user_fasting(user: User, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def demand_fasting(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    context.user_data.clear()
-
     user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
     if not user:
         await update.message.reply_text(t('phrases.meet_first'), parse_mode=ParseMode.HTML)

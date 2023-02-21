@@ -1,6 +1,4 @@
 import i18n
-from telegram import Update
-from telegram.constants import ParseMode
 from telegram.ext import ConversationHandler
 
 from bot import db, User
@@ -15,15 +13,7 @@ async def no_location(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
     user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
     i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
 
-    msg = t('phrases.try_again')
-    if update.callback_query:
-        try:
-            await update.callback_query.edit_message_text(msg)
-        except:
-            await update.callback_query.delete_message()
-            await context.bot.send_message(update.effective_user.id, msg)
-    else:
-        await update.message.reply_text(msg)
+    await replace_message(t('phrases.try_again'), update, context)
     return LOCATION
 
 
@@ -53,16 +43,22 @@ async def update_location(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     i18n.set("locale", user.lang_code)
     msg = okay() + t('phrases.start_choose_location')
     if update.callback_query:
+        await update.callback_query.delete_message()
         await context.bot.send_photo(
             update.callback_query.from_user.id, settings.location_pic, msg, parse_mode=ParseMode.HTML)
     else:
         await update.message.reply_photo(settings.location_pic, msg, parse_mode=ParseMode.HTML)
+
+    await replace_message(t('phrases.try_again'), update, context)
     return SET_LOCATION
 
 
 async def location(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
     i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
+
+    if not ('probably_location' in context.user_data or (update.message and update.message.location)):
+        return await update_location(update, context)
 
     if update.callback_query and int(update.callback_query.data) == YES:
         context.user_data['location'] = context.user_data['probably_location']
@@ -87,7 +83,6 @@ async def location(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 
 async def set_location(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    context.user_data.clear()
     if not update.message.location and update.message.text:
         context.user_data['skip_days'] = True
         return await text_location(update, context)

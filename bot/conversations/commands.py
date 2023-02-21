@@ -4,8 +4,6 @@ import json
 import traceback
 
 import i18n
-from telegram import Update
-from telegram.constants import ParseMode
 from telegram.ext import ConversationHandler, CallbackContext
 
 from bot import db, emo, logger, User
@@ -88,7 +86,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     msg += '\n'
     msg += t('phrases.start_choose_location')
 
-    await update.message.reply_photo(
+    await update.effective_user.send_photo(
         settings.location_pic,
         msg,
         parse_mode=ParseMode.HTML,
@@ -97,7 +95,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 
 async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active: bool = True) -> int:
-
     logger.debug(f"Пробуем добавить или изменить нового пользователя: {context.user_data}")
     user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
     i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
@@ -149,14 +146,7 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     else:
         msg = okay() + t('phrases.no_answer') + emo.get(sad) + '\n' + t('phrases.again')
 
-    if update.callback_query:
-        try:
-            await update.callback_query.edit_message_text(msg)
-        except:
-            await update.callback_query.delete_message()
-            await context.bot.send_message(update.effective_user.id, msg)
-    else:
-        await update.message.reply_text(msg)
+    await replace_message(msg, update, context)
     return ConversationHandler.END
 
 
@@ -166,18 +156,10 @@ async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
     i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
     if not user:
-        await update.message.reply_text(t('phrases.no_user'))
+        await replace_message(t('phrases.no_user'), update, context)
     else:
         msg = okay() + t('phrases.stop') + '\n' + t('phrases.again')
-        if update.callback_query:
-            try:
-                await update.callback_query.edit_message_text(msg)
-            except:
-                await update.callback_query.delete_message()
-                await context.bot.send_message(update.effective_user.id, msg)
-        else:
-            await update.message.reply_text(msg)
-
+        await replace_message(msg, update, context)
         await set_record(update, context, False)
 
     return ConversationHandler.END

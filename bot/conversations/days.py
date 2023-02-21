@@ -1,6 +1,4 @@
 import i18n
-from telegram import Update
-from telegram.constants import ParseMode
 from telegram.ext import ConversationHandler
 
 from bot import db, User
