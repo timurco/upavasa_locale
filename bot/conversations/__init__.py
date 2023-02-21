@@ -40,6 +40,6 @@ async def get_user_name(user, context: ContextTypes.DEFAULT_TYPE) -> Optional[st
     if not tg_user.user:
         return None
     if not tg_user.user.username:
-        return '%d: %s %s' % (user.id, tg_user.user.first_name, tg_user.user.last_name)
+        return '%d: %s %s' % (user.id if user.id else -1, tg_user.user.first_name, tg_user.user.last_name)
 
     return '%d: %s %s (%s)' % (user.id, tg_user.user.first_name, tg_user.user.last_name, tg_user.user.username)
