@@ -27,6 +27,9 @@ en:
   no_user: >
     You are not on my list. So there is nothing to stop here.
     But if you want, you can start notifications via /start
+  no_send: >-
+    I won't send you notifications, but you can use the /get_fasting command
+    at any time to get a list of upcoming fasting days according to your location!
   stop: I canceled your notification subscription..
   again: Press /start if you want to start again
   try_again: Try again!

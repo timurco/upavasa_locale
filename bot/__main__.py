@@ -39,7 +39,7 @@ application.add_handler(
                 CallbackQueryHandler(ekadashi, pattern="^" + str(EKADASHI) + "$"),
                 CallbackQueryHandler(all_days, pattern="^" + str(ALLDAYS) + "$"),
                 CallbackQueryHandler(cancel, pattern="^" + str(CANCEL) + "$"),
-                CallbackQueryHandler(stop, pattern="^" + str(ZERODAYS) + "$")
+                CallbackQueryHandler(no_send, pattern="^" + str(ZERODAYS) + "$")
             ],
             LOC_CONFIRMATION: [
                 CallbackQueryHandler(location, pattern="^" + str(YES) + "$"),

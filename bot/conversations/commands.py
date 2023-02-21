@@ -99,12 +99,13 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
     user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
     i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
     new_user = not bool(user)
+    days = context.user_data['days'] if 'days' in context.user_data.keys() else 0
+    location = [str(context.user_data['location'][0]),str(context.user_data['location'][1])]
     if user:
         if 'location' in context.user_data.keys():
-            user.lat = str(context.user_data['location'][0])
-            user.long = str(context.user_data['location'][1])
-        if 'days' in context.user_data.keys():
-            user.days = context.user_data['days']
+            user.lat = location[0]
+            user.long = location[1]
+            user.days = days
         user.active = active
         username = await get_user_name(user, context)
         logger.debug(f"✅️ Пользователь изменил данные: {username}")
@@ -116,9 +117,9 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
         user = User(
             tg_id=update.effective_user.id,
             lang_code=update.effective_user.language_code,
-            lat=str(context.user_data['location'][0]),
-            long=str(context.user_data['location'][1]),
-            days=context.user_data['days'],
+            lat=location[0],
+            long=location[1],
+            days=days,
             active=True,
         )
     db.add(user)
@@ -147,6 +148,13 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         msg = okay() + t('phrases.no_answer') + emo.get(sad) + '\n' + t('phrases.again')
 
     await replace_message(msg, update, context)
+    return ConversationHandler.END
+
+
+async def no_send(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    msg = okay() + '\n' + t('phrases.no_send')
+    await replace_message(msg, update, context)
+    await set_record(update, context, active=False)
     return ConversationHandler.END
 
 
