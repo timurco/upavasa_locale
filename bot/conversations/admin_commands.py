@@ -6,6 +6,7 @@ from telegram.ext import ConversationHandler
 from bot import db, User
 from bot.conversations import *
 from bot.conversations.notifications import every_time
+from bot.services.logger import logger
 from bot.services.weather import get_city
 from bot.settings import settings
 from bot.utils.i18n_start import set_lang
@@ -21,15 +22,20 @@ async def admin_messages(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         888583726, 184695223, 775274111, 1061480705, 1061480705,
         settings.developer]
     for id in ids:
-        developer = await context.bot.get_chat_member(settings.developer, settings.developer)
-        tg_user = await context.bot.get_chat_member(id, id)
-        await update.message.reply_text(
-            f'Намаскар, {tg_user.user.mention_html()}! ' +
-            'Была ошибка при которой у тебя не получилось зарегистрироваться, ' +
-            'можешь пожалуйста снова нажать на команду /start чтобы еще раз начать регистрацию? Спасибо!\n\n' +
-            f'Если что-то не получится, напиши разработчику: {developer.user.mention_html()}',
-            parse_mode=ParseMode.HTML
-        )
+        try:
+            developer = await context.bot.get_chat_member(settings.developer, settings.developer)
+            tg_user = await context.bot.get_chat_member(id, id)
+            await context.bot.send_message(update.effective_user.id, tg_user)
+        except Exception as e:
+            logger.error(id)
+            logger.error(e)
+        # await update.message.reply_text(
+        #     f'Намаскар, {tg_user.user.mention_html()}! ' +
+        #     'Была ошибка при которой у тебя не получилось зарегистрироваться, ' +
+        #     'можешь пожалуйста снова нажать на команду /start чтобы еще раз начать регистрацию? Спасибо!\n\n' +
+        #     f'Если что-то не получится, напиши разработчику: {developer.user.mention_html()}',
+        #     parse_mode=ParseMode.HTML
+        # )
         context.user_data.clear()
 
     return ConversationHandler.END
