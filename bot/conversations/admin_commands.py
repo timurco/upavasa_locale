@@ -19,7 +19,7 @@ async def admin_messages(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         return ConversationHandler.END
 
     ids = [
-        888583726, 775274111, 1061480705,
+        # 888583726, 775274111, 1061480705,
         settings.developer]
     for id in ids:
         try:
@@ -33,8 +33,7 @@ async def admin_messages(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
                parse_mode=ParseMode.HTML
             )
         except Exception as e:
-            logger.error(id)
-            logger.error(e)
+            logger.error(f'{e}: {id}')
         context.user_data.clear()
 
     return ConversationHandler.END
