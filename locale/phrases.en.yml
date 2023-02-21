@@ -20,7 +20,7 @@ en:
   days_update: >
     You can update the days you are fasting at any time through the command /update_days
   start_choose_day: >
-    %{and_now}, let's choose the day you want to receive fasting notifications.
+    %{and_now}, let's choose the fasting days for which you want to receive notifications.
   location_update: >
     You can update your location at any time through the command /update_location
   set_location: Your location has been updated!
