@@ -61,7 +61,11 @@ async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     msg = t('info.help',
             mission=t('phrases.mission'),
             my_name=t('phrases.my_name', name=t('words.name')))
-    await context.bot.send_message(update.effective_user.id, msg, parse_mode=ParseMode.HTML)
+    await context.bot.send_message(
+        update.effective_user.id,
+        msg,
+        parse_mode=ParseMode.HTML,
+        disable_web_page_preview=True)
     return ConversationHandler.END
 
 
