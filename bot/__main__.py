@@ -21,6 +21,7 @@ application.add_handler(CommandHandler('get_fasting', demand_fasting))
 # admin commands
 application.add_handler(CommandHandler('admin_notify', admin_notify))
 application.add_handler(CommandHandler('admin_tithi', admin_tithi))
+application.add_handler(CommandHandler('admin_messages', admin_messages))
 
 application.add_handler(
     ConversationHandler(
@@ -55,6 +56,7 @@ application.add_handler(
             CommandHandler("help", help),
             CommandHandler("donate", donate),
             CommandHandler('stop', stop),
+            CommandHandler('start', start),
             CommandHandler('get_fasting', demand_fasting)
         ]
     )
