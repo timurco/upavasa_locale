@@ -18,7 +18,7 @@ async def admin_messages(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         return ConversationHandler.END
 
     ids = [
-        # 888583726, 184695223, 775274111, 1061480705, 1061480705,
+        888583726, 184695223, 775274111, 1061480705, 1061480705,
         settings.developer]
     for id in ids:
         developer = await context.bot.get_chat_member(settings.developer, settings.developer)
