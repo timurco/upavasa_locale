@@ -36,6 +36,18 @@ async def error_handler(update: object, context: CallbackContext) -> None:
         f'\n<pre>{html.escape(tb_string)}</pre>'
     )
 
+    # Maximum characters of telegram messages is 9500
+    def truncate_middle(s, n):
+        if len(s) <= n:
+            # string is already short-enough
+            return s
+        # half of the size, minus the 3 .'s
+        n_2 = int(n) / 2 - 3
+        # whatever's left
+        n_1 = n - n_2 - 3
+        return '{0}...{1}'.format(s[:n_1], s[-n_2:])
+
+    message = truncate_middle(message, 9500)
     # Finally, send the message
     await context.bot.send_message(chat_id=settings.developer, text=message, parse_mode='HTML')
 
