@@ -101,6 +101,7 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
     logger.debug(f"Пробуем добавить или изменить нового пользователя: {context.user_data}")
     user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
     i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
+    new_user = not bool(user)
     if user:
         if 'location' in context.user_data.keys():
             user.lat = str(context.user_data['location'][0])
@@ -123,10 +124,17 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
             days=context.user_data['days'],
             active=True,
         )
-        username = await get_user_name(user, context)
-        logger.info(f"❇️ У нас новый пользователь: {username}")
     db.add(user)
     db.commit()
+
+    if new_user:
+        username = await get_user_name(user, context)
+        logger.info(f"❇️ У нас новый пользователь: {username}")
+        await context.bot.send_message(
+            settings.developer,
+            f"❇️ У нас новый пользователь:\nid: {user.id} – {update.effective_user.mention_html()}",
+            parse_mode='HTML'
+        )
     return ConversationHandler.END
 
 
