@@ -14,7 +14,7 @@ async def ekadashi(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
 
     context.user_data['days'] = 1
-    msg = okay() + t('phrases.ready_to_send', days=t('words.ekadashi'))
+    msg = okay() + t('phrases.ready_to_send', days=t('words.ekadashi', count=1))
     msg += '\n'
     msg += t('phrases.days_update')
     await update.callback_query.edit_message_text(msg, parse_mode=ParseMode.HTML)
