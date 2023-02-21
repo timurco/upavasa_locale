@@ -25,17 +25,16 @@ async def admin_messages(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         try:
             developer = await context.bot.get_chat_member(settings.developer, settings.developer)
             tg_user = await context.bot.get_chat_member(id, id)
-            await context.bot.send_message(update.effective_user.id, tg_user)
+            await context.bot.send_message(update.effective_user.id,
+               f'Намаскар, {tg_user.user.mention_html()}! ' +
+               'Была ошибка при которой у тебя не получилось зарегистрироваться, ' +
+               'можешь пожалуйста снова нажать на команду /start чтобы еще раз начать регистрацию? Спасибо!\n\n' +
+               f'Если что-то не получится, напиши разработчику: {developer.user.mention_html()}',
+               parse_mode=ParseMode.HTML
+            )
         except Exception as e:
             logger.error(id)
             logger.error(e)
-        # await update.message.reply_text(
-        #     f'Намаскар, {tg_user.user.mention_html()}! ' +
-        #     'Была ошибка при которой у тебя не получилось зарегистрироваться, ' +
-        #     'можешь пожалуйста снова нажать на команду /start чтобы еще раз начать регистрацию? Спасибо!\n\n' +
-        #     f'Если что-то не получится, напиши разработчику: {developer.user.mention_html()}',
-        #     parse_mode=ParseMode.HTML
-        # )
         context.user_data.clear()
 
     return ConversationHandler.END
