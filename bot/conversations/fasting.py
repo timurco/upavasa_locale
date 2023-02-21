@@ -24,7 +24,12 @@ async def get_user_fasting(user: User, context: ContextTypes.DEFAULT_TYPE):
         f"📡 Пользователь #{username} " +
         f"⌛️ запросил расчет {user.last_demand}")
 
-    tz = get_timezone(float(user.lat), float(user.long))
+    try:
+        tz = get_timezone(float(user.lat), float(user.long))
+    except Exception as e:
+        await last_message.edit_text(t('phrases.location_error'), parse_mode=ParseMode.HTML)
+        raise e
+
     f = calculate_fasting_days(tz.place)
     fasting_message = ""
     for _, fasting in f.iterrows():
