@@ -3,9 +3,9 @@ en:
     %{my_name}
     %{mission}
     <b>The following commands are available:</b>
-    • /help - This text
-    • /start - To change settings (location and day)
-    • /cancel - Cancel settings entry
+    • /help - Information about commands
+    • /start - Start adding settings again or edit the current (Location and day)
+    • /cancel - Cancel data entry
     • /update_days - Update fasting days. Ekadashi, or Ekadashi, Purnima and Amavasya
     • /update_location - Update your location
     • /get_fasting - Calculate and get a list of upcoming fasts according to my location (<i>there is a restriction - no more than 1 request per 10 minutes.</i>) 
