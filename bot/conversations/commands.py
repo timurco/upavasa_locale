@@ -113,7 +113,7 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
     logger.debug(f"Пробуем добавить или изменить нового пользователя: {context.user_data}")
     user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
     i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
-    new_user = not bool(user)
+    new_user = not user
     days = context.user_data['days'] if 'days' in context.user_data.keys() else 0
     location = [str(context.user_data['location'][0]), str(context.user_data['location'][1])]
     if user:
@@ -123,7 +123,7 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
             user.days = days
         user.active = active
         username = await get_user_name(user, context)
-        logger.debug(f"✅️ Пользователь изменил данные: {username}")
+        logger.info(f"✅️ Пользователь изменил данные: {username}")
         # если пользователь изменил язык
         user.lang_code = update.effective_user.language_code
         user.last_demand = datetime.datetime.utcnow() - datetime.timedelta(hours=3)
@@ -137,12 +137,12 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
             days=days,
             active=True,
         )
+        username = await get_user_name(user, context)
+        logger.info(f"❇️ У нас новый пользователь: {username}")
     db.add(user)
     db.commit()
 
     if new_user:
-        username = await get_user_name(user, context)
-        logger.info(f"❇️ У нас новый пользователь: {username}")
         await context.bot.send_message(
             settings.developer,
             f"❇️ У нас новый пользователь:\nid: {user.id} – {update.effective_user.mention_html()}",
