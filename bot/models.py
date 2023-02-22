@@ -15,6 +15,7 @@ class User(Base):
     active = Column(Boolean, default=True)
     last_touch = Column(DateTime, server_default=func.now())
     last_demand = Column(DateTime, server_default=func.now())
+    created_at = Column(DateTime, server_default=func.now())
 
     def __repr__(self):
         return "<User(id='{}', tg_id='{}', lat='{}', long={}, days={}, active={}, lang_code={}, last_touch)>" \

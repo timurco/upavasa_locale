@@ -136,6 +136,7 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
             long=location[1],
             days=days,
             active=True,
+            created_at=datetime.datetime.utcnow()
         )
         username = await get_user_name(user, context)
         logger.info(f"❇️ У нас новый пользователь: {username}")
@@ -146,7 +147,7 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
         await context.bot.send_message(
             settings.developer,
             f"❇️ У нас новый пользователь:\nid: {user.id} – {update.effective_user.mention_html()}",
-            parse_mode='HTML'
+            parse_mode=ParseMode.HTML
         )
     return ConversationHandler.END
 

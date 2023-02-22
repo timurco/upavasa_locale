@@ -22,7 +22,8 @@ async def admin_get_users(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     for user in users:
 
         tg = await context.bot.get_chat_member(user.tg_id, user.tg_id)
-        msg += f'\n{random.choice(["🥸","😜","😇","🥳","🤩"])}<b>{user.id}</b>: {tg.user.mention_html()}'
+        msg += f'\n{random.choice(["🥸","😜","😇","🥳","🤩"])}<b>{user.id}</b>: {tg.user.mention_html()}, '
+        msg += user.created_at.strftime("Создан: <b>(%-d %B %Yг. %H:%M:%S UTC)</b> ")
 
     await update.message.reply_text(
         msg,
