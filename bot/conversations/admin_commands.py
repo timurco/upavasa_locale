@@ -17,7 +17,7 @@ async def admin_get_users(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     if update.effective_user.id != settings.developer:
         return ConversationHandler.END
 
-    users = db.query(User).order_by(User.id.desc).all()
+    users = db.query(User).order_by(User.id).all()
     msg = f"Пользователей: <b>{len(users)}</b>"
     for user in users:
 
