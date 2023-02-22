@@ -1,14 +1,36 @@
+import random
+
 import i18n
 from telegram.ext import ConversationHandler
 
+from bot import db, User, logger
 from bot.conversations import *
 from bot.conversations.notifications import every_time
-from bot.services.logger import logger
 from bot.services.weather import get_city
 from bot.settings import settings
 from bot.utils.i18n_start import set_lang
 from bot.utils.timezones import get_timezone
 from fastings.calculations import calculate_fasting_days
+
+
+async def admin_get_users(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    if update.effective_user.id != settings.developer:
+        return ConversationHandler.END
+
+    users = db.query(User).all()
+    msg = f"Пользователей: <b>{len(users)}</b>"
+    for user in users:
+
+        tg = await context.bot.get_chat_member(user.tg_id, user.tg_id)
+        msg += f'\n{random.choice(["🥸","😜","😇","🥳","🤩"])}<b>{user.id}</b>: {tg.user.mention_html()}'
+        # msg += f"❇️ id: {user.id} {tg.user.mention_html()}",
+
+    await update.message.reply_text(
+        msg,
+        parse_mode=ParseMode.HTML
+    )
+
+    return ConversationHandler.END
 
 
 async def admin_messages(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
