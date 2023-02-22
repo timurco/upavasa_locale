@@ -15,17 +15,19 @@ from bot.utils.phrases import namaskar, okay
 
 async def error_handler(update: object, context: CallbackContext) -> None:
     """Log the error and send a telegram message to notify the developer."""
-    # Log the error before we do anything else, so we can see it even if something breaks.
-    logger.error(msg="Exception while handling an update:", exc_info=context.error)
 
     # Exclude Network Errors
     if type(context.error).__name__ == 'NetworkError':
         tb_list = traceback.format_exception(None, context.error, context.error.__traceback__)
         tb_string = ''.join(tb_list[-5:])
-        await context.bot.send_message(
-            chat_id=settings.developer,
-            text=f'<b>NetworkError</b>\n<pre>{html.escape(tb_string)}</pre>', parse_mode=ParseMode.HTML)
+        logger.error(msg=f'NetworkError:\n{tb_string}')
+        # await context.bot.send_message(
+        #     chat_id=settings.developer,
+        #     text=f'<b>NetworkError</b>\n<pre>{html.escape(tb_string)}</pre>', parse_mode=ParseMode.HTML)
         return
+
+    # Log the error before we do anything else, so we can see it even if something breaks.
+    logger.error(msg="Exception while handling an update:", exc_info=context.error)
 
     # traceback.format_exception returns the usual python message about an exception, but as a
     # list of strings rather than a single string, so we have to join them together.
@@ -113,7 +115,7 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
     i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
     new_user = not bool(user)
     days = context.user_data['days'] if 'days' in context.user_data.keys() else 0
-    location = [str(context.user_data['location'][0]),str(context.user_data['location'][1])]
+    location = [str(context.user_data['location'][0]), str(context.user_data['location'][1])]
     if user:
         if 'location' in context.user_data.keys():
             user.lat = location[0]
