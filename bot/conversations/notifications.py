@@ -14,22 +14,27 @@ from bot.utils.timezones import get_timezone, Timezone
 from fastings.calculations import calculate_fasting_days
 
 
-async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, tz: Timezone, until: int = 2) -> bool:
+async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, tz: Timezone, until: int = 2,
+                               safe=True) -> bool:
     f = calculate_fasting_days(tz.place)
     first = f.iloc[0]
 
     if user.days == 1 and not first['tithi'] == 'ekadashi':
         logger.debug('Не экадаши')
-        return False
+        if safe: return False
 
     fast_day = first['starts']
     if fast_day.hour > 18:
         fast_day += timedelta(days=1)
 
-    until_event = fast_day.replace(tzinfo=None) - tz.time
+    tz.time += timedelta(days=1)
+    time_zero = tz.time.replace(hour=0, minute=0, second=0, microsecond=0)
+    fast_day_zero = fast_day.replace(tzinfo=None).replace(hour=0, minute=0, second=0, microsecond=0)
+    until_event = fast_day_zero - time_zero
+
     if until_event.days > until:
         logger.debug(f"❎🗓 Мероприятие начнётся только {naturaltime(-until_event)}")
-        return False
+        if safe: return False
 
     message = namaskar() + '\n'
     message += t('words.regarding', place=tz.place) + ',\n'
@@ -95,5 +100,5 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE, safe=True) -> bool:
             logger.debug("🤫 Тихий час!")
             continue
 
-        return await fasting_notification(user, context, tz, 2 if safe else 10)
+        return await fasting_notification(user, context, tz, 2, safe)
     return False

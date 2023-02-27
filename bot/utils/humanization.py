@@ -23,7 +23,7 @@ def gethumanday(event_date, tz_offset: timedelta):
         2: t("words.aftertomorrow"),
     }
 
-    if diff.days in range(0, 3) and diff_real.seconds > 10 * 60 * 60:
+    if diff.days in range(1, 3) or diff.days == 0 and diff_real.seconds > 10 * 60 * 60:
         return DAY_ALTERNATIVES[diff.days]
 
     if locale.getlocale(locale.LC_TIME)[0] and 'en' in locale.getlocale(locale.LC_TIME)[0]:
