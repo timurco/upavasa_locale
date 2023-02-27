@@ -20,7 +20,7 @@ async def error_handler(update: object, context: CallbackContext) -> None:
     if type(context.error).__name__ == 'NetworkError':
         tb_list = traceback.format_exception(None, context.error, context.error.__traceback__)
         tb_string = ''.join(tb_list[-5:])
-        logger.error(msg=f'NetworkError:\n{tb_string}')
+        logger.debug(msg=f'NetworkError:\n{tb_string}')
         # await context.bot.send_message(
         #     chat_id=settings.developer,
         #     text=f'<b>NetworkError</b>\n<pre>{html.escape(tb_string)}</pre>', parse_mode=ParseMode.HTML)
