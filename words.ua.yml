@@ -1,0 +1,44 @@
+uk:
+  name: Бот Упаваса
+  today: сьогодні
+  tomorrow: завтра
+  aftertomorrow: післязавтра
+  namaskar: намаскар
+  friend:
+    - друг
+    - людина
+  ekadashi:
+    one: Екадаши
+    many: Екадаши
+  only_ekadashi: Тільки %{ekadashi}
+  purnima:
+    one: Пурніма
+    many: Пурніми
+  amavasya:
+    one: Амавасья
+    many: Амавасьї
+  all_days: "%{ekadashi}, %{purnima} та %{amavasya}"
+  zero_days: Відмовитися від сповіщень
+  regarding: Згідно з твоїм місцем проживання (%{place})
+  starts: почнеться
+  _and_now:
+    - А зараз
+    - А тепер
+    - Зараз
+    - Тепер
+  cancel: Відміна
+  yes_answer: Так
+  no_answer: Ні
+  _moment:
+    - Хвилинку...
+    - Секунду...
+    - Почекай...
+    - Погодься...
+  _ok:
+    - Прийнято
+    - Зрозуміло
+    - Зрозуміло
+    - Відмінно
+    - Супер
+    - Клас
+    - Кайф
