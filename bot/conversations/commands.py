@@ -146,8 +146,6 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
     except Exception as e:
         db.rollback()
         raise Exception(f"Ошибка добавления в базу. Сообщение:{e.__str__()}")
-    finally:
-        db.close()
 
     if new_user:
         await context.bot.send_message(

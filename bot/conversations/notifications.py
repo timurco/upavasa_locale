@@ -71,8 +71,6 @@ async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, t
     except Exception as e:
         db.rollback()
         raise Exception(f"Ошибка изменения в базе. Сообщение:{e.__str__()}")
-    finally:
-        db.close()
     return True
 
 
