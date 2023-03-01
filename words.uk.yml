@@ -19,7 +19,7 @@ uk:
     many: Амавасьї
   all_days: "%{ekadashi}, %{purnima} та %{amavasya}"
   zero_days: Відмовитися від сповіщень
-  regarding: Згідно з твоїм місцем проживання (%{place})
+  regarding: Згідно з твоїм місцем проживання (<b>%{place}</b>)
   starts: почнеться
   _and_now:
     - А зараз

@@ -19,7 +19,7 @@ ru:
     many: Амавасьи
   all_days: "%{ekadashi} и %{purnima} и %{amavasya}"
   zero_days: Отказаться от уведомлений
-  regarding: Согласно твоему месту проживания (%{place})
+  regarding: Согласно твоему месту проживания (<b>%{place}</b>)
   starts: начнётся
   _and_now:
     - А сейчас
