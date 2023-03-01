@@ -126,8 +126,8 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
         logger.info(f"✅️ Пользователь изменил данные: {username}")
         # если пользователь изменил язык
         user.lang_code = update.effective_user.language_code
-        user.last_demand = datetime.datetime.utcnow() - datetime.timedelta(hours=10)
-        user.last_touch = datetime.datetime.utcnow() - datetime.timedelta(hours=10)
+        user.last_demand = datetime.datetime.utcnow() - datetime.timedelta(days=1)
+        user.last_touch = datetime.datetime.utcnow() - datetime.timedelta(days=1)
     else:
         location = [str(context.user_data['location'][0]), str(context.user_data['location'][1])]
         user = User(
