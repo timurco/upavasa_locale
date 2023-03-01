@@ -3,7 +3,7 @@ en:
     %{my_name}
     %{mission}
     <b>The following commands are available:</b>
-    • /help - Information about commands
+    • /help - Information about this commands
     • /start - Start adding settings again or edit the current (Location and day)
     • /cancel - Cancel data entry
     • /update_days - Update fasting days. Ekadashi, or Ekadashi, Purnima and Amavasya
