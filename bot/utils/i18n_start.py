@@ -29,7 +29,8 @@ tg_lang_list = {
     'pt': 'pt_PT',  # Portuguese (Portugal)
     'es': 'es_ES',  # Spanish (Spain)
     'tr': 'tr_TR',  # Turkish (Turkey)
-    'uk': 'uk_UA',  # Ukrainian (Ukraine)
+    'uk': 'uk_UA',  # Ukrainian (Ukraine),
+    'hy-am': 'ru_RU',  # Армянский (Временно вместо него русский)
 }
 
 
