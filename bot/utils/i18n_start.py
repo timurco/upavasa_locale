@@ -30,7 +30,11 @@ tg_lang_list = {
     'es': 'es_ES',  # Spanish (Spain)
     'tr': 'tr_TR',  # Turkish (Turkey)
     'uk': 'uk_UA',  # Ukrainian (Ukraine),
-    'hy-am': 'ru_RU',  # Армянский (Временно вместо него русский)
+}
+
+# Исключения
+lang_excludes = {
+    'hy-am': 'ru_RU',  # Армения - Русский язык
 }
 
 
@@ -46,7 +50,12 @@ def set_lang(lang: str):
             lang_code = tg_lang_list[lang]
             locale.setlocale(locale.LC_TIME, lang_code)
             humanize.i18n.activate(lang)
+        elif lang in lang_excludes.keys():
+            lang_code = lang_excludes[lang]
+            locale.setlocale(locale.LC_TIME, lang_code)
+            humanize.i18n.activate(lang_code)
         else:
+            # Если нет в списке, делаем английский
             locale.setlocale(locale.LC_TIME, 'en_US')
             humanize.i18n.deactivate()
             raise Exception("Ошибка с локализацией: %s - %s" % (lang, lang))
