@@ -37,7 +37,7 @@ async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, t
         if safe: return False
 
     message = namaskar() + '\n'
-    message += t('words.regarding', place=tz.place) + ',\n'
+    message += t('words.regarding', place=tz.place) + ', '
     message += gethumanday(fast_day.replace(tzinfo=None), tz.utc)
     message += fast_day.strftime(' <b>(🗓 %-d %B)</b> ') + t('words.starts') + ' '
 
