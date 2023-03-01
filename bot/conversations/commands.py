@@ -140,8 +140,14 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
         )
         username = await get_user_name(user, context)
         logger.info(f"❇️ У нас новый пользователь: {username}")
-    db.add(user)
-    db.commit()
+    try:
+        db.add(user)
+        db.commit()
+    except Exception as e:
+        db.rollback()
+        raise Exception(f"Ошибка добавления в базу. Сообщение:{e.__str__()}")
+    finally:
+        db.close()
 
     if new_user:
         await context.bot.send_message(

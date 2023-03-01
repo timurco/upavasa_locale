@@ -66,7 +66,13 @@ async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, t
         f"⌛️ Последнее {user.last_touch}, прошло {naturaltime((datetime.utcnow() - user.last_touch))}")
     await context.bot.send_message(user.tg_id, message, parse_mode=ParseMode.HTML)
     user.last_touch = datetime.utcnow()
-    db.commit()
+    try:
+        db.commit()
+    except Exception as e:
+        db.rollback()
+        raise Exception(f"Ошибка изменения в базе. Сообщение:{e.__str__()}")
+    finally:
+        db.close()
     return True
 
 

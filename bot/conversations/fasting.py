@@ -68,6 +68,12 @@ async def demand_fasting(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
         return ConversationHandler.END
 
     user.last_demand = datetime.datetime.utcnow()
-    db.commit()
+    try:
+        db.commit()
+    except Exception as e:
+        db.rollback()
+        raise Exception(f"Ошибка изменения базе. Сообщение: {e.__str__()}")
+    finally:
+        db.close()
     await get_user_fasting(user, context)
     return ConversationHandler.END
