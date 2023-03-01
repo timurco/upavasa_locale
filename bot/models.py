@@ -1,5 +1,5 @@
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Boolean, func, DateTime
+from sqlalchemy import Column, Integer, String, Boolean, func, DateTime, BigInteger
 
 Base = declarative_base()
 
@@ -7,7 +7,7 @@ Base = declarative_base()
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True)
-    tg_id = Column(Integer, unique=True)
+    tg_id = Column(BigInteger, unique=True)
     lang_code = Column(String, nullable=False)
     lat = Column(String)
     long = Column(String)
