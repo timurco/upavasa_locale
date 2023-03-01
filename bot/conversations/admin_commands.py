@@ -37,22 +37,28 @@ async def admin_messages(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     if update.effective_user.id != settings.developer:
         return ConversationHandler.END
 
-    ids = [
-        # 888583726, 775274111, 1061480705,
-        settings.developer]
-    for id in ids:
+    msg_input = update.message.text.split(" ", 1)
+
+    if len(msg_input) != 2:
+        await update.message.reply_text("IDs после комманды")
+        return ConversationHandler.END
+
+    ids = [int(n) for n in msg_input[1].split(', ')] + [settings.developer]
+
+    for idx in ids:
         try:
             developer = await context.bot.get_chat_member(settings.developer, settings.developer)
-            tg_user = await context.bot.get_chat_member(id, id)
-            await context.bot.send_message(id,
+            tg_user = await context.bot.get_chat_member(idx, idx)
+            await context.bot.send_message(idx,
                f'Намаскар, {tg_user.user.mention_html()}! ' +
                'Была ошибка при которой у тебя не получилось зарегистрироваться, ' +
                'можешь пожалуйста снова нажать на команду /start чтобы еще раз начать регистрацию? Спасибо!\n\n' +
                f'Если что-то не получится, напиши разработчику: {developer.user.mention_html()}',
-               parse_mode=ParseMode.HTML
-            )
+                                           parse_mode=ParseMode.HTML
+                                           )
         except Exception as e:
-            logger.error(f'{e}: {id}')
+            logger.error(f'{e}: {idx}')
+            await context.bot.send_message(idx, f'<pre>{e}: {idx}</pre>')
         context.user_data.clear()
 
     return ConversationHandler.END
