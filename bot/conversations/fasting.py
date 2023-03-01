@@ -34,7 +34,7 @@ async def get_user_fasting(user: User, context: ContextTypes.DEFAULT_TYPE):
     fasting_message = ""
     for _, fasting in f.iterrows():
         is_ekadashi = fasting['tithi'] == 'ekadashi'
-        if user.days == 1 and is_ekadashi:
+        if user.days == 1 and not is_ekadashi:
             continue
         this_row = '\n'
         this_row += t('words.' + fasting['tithi'], count=1)
