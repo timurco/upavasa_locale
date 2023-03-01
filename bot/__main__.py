@@ -58,7 +58,9 @@ application.add_handler(
             CommandHandler("donate", donate),
             CommandHandler('stop', stop),
             CommandHandler('start', start),
-            CommandHandler('get_fasting', demand_fasting)
+            CommandHandler('get_fasting', demand_fasting),
+            CommandHandler('update_location', update_location),
+            CommandHandler('update_days', update_days)
         ]
     )
 )

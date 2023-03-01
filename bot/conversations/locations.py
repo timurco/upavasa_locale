@@ -49,7 +49,6 @@ async def update_location(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     else:
         await update.message.reply_photo(settings.location_pic, msg, parse_mode=ParseMode.HTML)
 
-    await replace_message(t('phrases.try_again'), update, context)
     return SET_LOCATION
 
 

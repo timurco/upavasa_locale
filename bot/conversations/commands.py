@@ -115,20 +115,21 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
     i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
     new_user = not user
     days = context.user_data['days'] if 'days' in context.user_data.keys() else 0
-    location = [str(context.user_data['location'][0]), str(context.user_data['location'][1])]
     if user:
         if 'location' in context.user_data.keys():
+            location = [str(context.user_data['location'][0]), str(context.user_data['location'][1])]
             user.lat = location[0]
             user.long = location[1]
-            user.days = days
+        user.days = days
         user.active = active
         username = await get_user_name(user, context)
         logger.info(f"✅️ Пользователь изменил данные: {username}")
         # если пользователь изменил язык
         user.lang_code = update.effective_user.language_code
-        user.last_demand = datetime.datetime.utcnow() - datetime.timedelta(hours=3)
-        user.last_touch = datetime.datetime.utcnow() - datetime.timedelta(hours=3)
+        user.last_demand = datetime.datetime.utcnow() - datetime.timedelta(hours=10)
+        user.last_touch = datetime.datetime.utcnow() - datetime.timedelta(hours=10)
     else:
+        location = [str(context.user_data['location'][0]), str(context.user_data['location'][1])]
         user = User(
             tg_id=update.effective_user.id,
             lang_code=update.effective_user.language_code,
@@ -140,8 +141,8 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
         )
         username = await get_user_name(user, context)
         logger.info(f"❇️ У нас новый пользователь: {username}")
-    try:
         db.add(user)
+    try:
         db.commit()
     except Exception as e:
         db.rollback()
