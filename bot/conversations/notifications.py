@@ -104,5 +104,5 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE, safe=True) -> bool:
             logger.debug("🤫 Тихий час!")
             continue
 
-        return await fasting_notification(user, context, tz, 2, safe)
+        await fasting_notification(user, context, tz, 2, safe)
     return False
