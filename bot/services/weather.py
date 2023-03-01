@@ -17,5 +17,5 @@ async def get_city(query: str) -> Optional[List[float]]:
         parsed_data = json.loads(city_request.text)
         return [parsed_data[0]['lat'], parsed_data[0]['lon']]
     except Exception as err:
-        logger.error("❌ Ошибка при определении города: {}".format(err))
+        logger.error(f"❌ Ошибка при определении города: \"{str}\". Сообщение: {err.__str__()}")
         return None
