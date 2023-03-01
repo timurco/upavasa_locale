@@ -145,7 +145,7 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
         db.commit()
     except Exception as e:
         db.rollback()
-        await context.bot.send_message(t('phrases.something_wrong') + '. ' + t('phrases.try_again') + '... /start')
+        await context.bot.send_message(update.effective_user.id, t('phrases.something_wrong') + '. ' + t('phrases.try_again') + '... /start')
         raise Exception(f"❌ У пользователя {update.effective_user.mention_html()} не получилось зарегистрироваться. Сообщение:{e.__str__()}")
     if new_user:
         await context.bot.send_message(
