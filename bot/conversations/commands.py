@@ -152,7 +152,8 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
         await context.bot.send_message(
             settings.developer,
             f"❇️ У нас новый пользователь:\nid: {user.id} – {update.effective_user.mention_html()}",
-            parse_mode=ParseMode.HTML
+            parse_mode=ParseMode.HTML,
+            disable_notification=True,
         )
     return ConversationHandler.END
 
