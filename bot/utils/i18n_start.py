@@ -1,4 +1,5 @@
 import locale
+from bot import logger
 
 import humanize
 from i18n import translations, config
@@ -32,11 +33,6 @@ tg_lang_list = {
     'uk': 'uk_UA',  # Ukrainian (Ukraine),
 }
 
-# Исключения
-lang_excludes = {
-    'hy-am': 'ru_RU',  # Армения - Русский язык
-}
-
 
 def set_lang(lang: str):
     i18n.set("locale", lang)
@@ -50,15 +46,11 @@ def set_lang(lang: str):
             lang_code = tg_lang_list[lang]
             locale.setlocale(locale.LC_TIME, lang_code)
             humanize.i18n.activate(lang)
-        elif lang in lang_excludes.keys():
-            lang_code = lang_excludes[lang]
-            locale.setlocale(locale.LC_TIME, lang_code)
-            humanize.i18n.activate(lang_code)
         else:
             # Если нет в списке, делаем английский
             locale.setlocale(locale.LC_TIME, 'en_US')
             humanize.i18n.deactivate()
-            raise Exception("Ошибка с локализацией: %s - %s" % (lang, lang))
+            logger.error("Ошибка с локализацией: %s - %s" % (lang, lang))
 
 
 def translate(key, **kwargs):
