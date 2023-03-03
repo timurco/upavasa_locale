@@ -32,6 +32,12 @@ async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, t
     fast_day_zero = fast_day.replace(tzinfo=None).replace(hour=0, minute=0, second=0, microsecond=0)
     until_event = fast_day_zero - time_zero
 
+    logger.debug('День голодания: {:%-d %B, %H:%M}'.format(fast_day))
+    logger.debug('День голодания (обнуленный): {:%-d %B, %H:%M}'.format(fast_day_zero))
+    logger.debug('Время: {:%-d %B, %H:%M}'.format(tz.time))
+    logger.debug('Время (обнуленный): {:%-d %B, %H:%M}'.format(time_zero))
+    logger.debug(f'До события: {until_event}')
+
     if until_event.days > until:
         logger.debug(f"❎🗓 Мероприятие начнётся только {naturaltime(-until_event)}")
         if safe: return False
@@ -63,7 +69,7 @@ async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, t
     username = await get_user_name(user, context)
     logger.info(
         f"🔔 Оповещение пользователя #{username}. " +
-        f"⌛️ Последнее {user.last_touch}, прошло {naturaltime((datetime.utcnow() - user.last_touch))}")
+        f"⌛️ Последнее {user.last_touch}, {naturaltime((datetime.utcnow() - user.last_touch))}")
     await context.bot.send_message(user.tg_id, message, parse_mode=ParseMode.HTML)
     user.last_touch = datetime.utcnow()
     if not safe:

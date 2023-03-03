@@ -1,6 +1,7 @@
 import locale
 from datetime import timedelta, date, datetime
 import humanize
+from bot.services.logger import logger
 from bot.utils.i18n_start import t
 
 
@@ -16,6 +17,10 @@ def gethumanday(event_date, tz_offset: timedelta):
     midnight = (now - timedelta(seconds=4 * 60 * 60)).replace(hour=0, minute=0)
     diff_real = event_date - now
     diff = event_date - midnight
+
+    logger.debug('Midnight: {:%-d %B, %H:%M}'.format(midnight))
+    logger.debug(f'Разница (реальная): {diff_real}')
+    logger.debug(f'Разница (с смещением): {diff}')
 
     DAY_ALTERNATIVES = {
         0: t("words.today"),
