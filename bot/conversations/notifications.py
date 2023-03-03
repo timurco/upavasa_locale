@@ -27,7 +27,7 @@ async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, t
     if fast_day.hour > 18:
         fast_day += timedelta(days=1)
 
-    tz.time += timedelta(days=1)
+    # tz.time += timedelta(days=1)
     time_zero = tz.time.replace(hour=0, minute=0, second=0, microsecond=0)
     fast_day_zero = fast_day.replace(tzinfo=None).replace(hour=0, minute=0, second=0, microsecond=0)
     until_event = fast_day_zero - time_zero
