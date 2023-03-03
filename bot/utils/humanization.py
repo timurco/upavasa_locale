@@ -3,19 +3,19 @@ from datetime import timedelta, date, datetime
 import humanize
 from bot.services.logger import logger
 from bot.utils.i18n_start import t
+from bot.utils.timezones import Timezone
 
 
-def gethumanday(event_date, tz_offset: timedelta):
+def gethumanday(event_date, tz: Timezone):
     is_date_only = type(event_date) is date
     # Возводим дату в вид с отображением часов, если получили дату без времени
     if is_date_only:
         event_date = datetime.fromordinal(event_date.toordinal())
         event_date = event_date.replace(hour=6, minute=0)
 
-    now = datetime.utcnow() + tz_offset
     # seconds=4*60*60 – начинаем считать день с 4:00 утра
-    midnight = (now - timedelta(seconds=4 * 60 * 60)).replace(hour=0, minute=0)
-    diff_real = event_date - now
+    midnight = (tz.time - timedelta(seconds=4 * 60 * 60)).replace(hour=0, minute=0)
+    diff_real = event_date - tz.time
     diff = event_date - midnight
 
     logger.debug('Midnight: {:%-d %B, %H:%M}'.format(midnight))

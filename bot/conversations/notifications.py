@@ -44,7 +44,7 @@ async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, t
 
     message = namaskar() + '\n'
     message += t('words.regarding', place=tz.place) + ', '
-    message += gethumanday(fast_day.replace(tzinfo=None), tz.utc)
+    message += gethumanday(fast_day.replace(tzinfo=None), tz)
     message += fast_day.strftime(' <b>(🗓 %-d %B)</b> ') + t('words.starts') + ' '
 
     if first['tithi'] == 'ekadashi':
