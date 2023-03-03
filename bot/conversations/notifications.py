@@ -70,7 +70,12 @@ async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, t
     logger.info(
         f"🔔 Оповещение пользователя #{username}. " +
         f"⌛️ Последнее {user.last_touch}, {naturaltime((datetime.utcnow() - user.last_touch))}")
-    await context.bot.send_message(user.tg_id, message, parse_mode=ParseMode.HTML)
+
+    try:
+        await context.bot.send_message(user.tg_id, message, parse_mode=ParseMode.HTML)
+    except Forbidden as e:
+        logger.error(f'Пользователь заблочил бота, отключаем в базе. Ошибка: {e.__str__()}')
+        user.active = False
     user.last_touch = datetime.utcnow()
     # if not safe:
     #     # Если админский запрос, то не сохраняем в базу дату оповещения
