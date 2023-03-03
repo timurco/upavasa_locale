@@ -1,11 +1,10 @@
 import random
 
-import i18n
 from telegram.ext import ConversationHandler
 
 from bot import db, User, logger
 from bot.conversations import *
-from bot.conversations.notifications import every_time
+from bot.conversations.notifications import fasting_notification
 from bot.services.weather import get_city
 from bot.settings import settings
 from bot.utils.i18n_start import set_lang
@@ -68,8 +67,10 @@ async def admin_notify(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
     if update.effective_user.id != settings.developer:
         return ConversationHandler.END
 
-    i18n.set("locale", update.effective_user.language_code)
-    if not await every_time(context, safe=False):
+    user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
+    set_lang(user.lang_code)
+    tz = get_timezone(float(user.lat), float(user.long))
+    if not await fasting_notification(user, context, tz, settings.notification_days, safe=False):
         await update.message.reply_text("Возможно еще рано оповещать или ближайшее титхи не то, которое ты выбрал...")
     return ConversationHandler.END
 
