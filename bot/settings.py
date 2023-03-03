@@ -15,6 +15,10 @@ class Settings(BaseSettings):
     # например: 3 * 60 * 60 - 3 часа
     roug_calc_step: int = 3 * 60 * 60
     exact_calc_step: int = 120
+    # За сколько дней начать оповещения
+    # 0: за 1 день
+    # 1: за 2 дня и т.д.
+    notification_days: int = 0
 
 
 load_dotenv()
