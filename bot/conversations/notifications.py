@@ -2,6 +2,7 @@ from datetime import timedelta, datetime
 
 from humanize import naturaltime
 from telegram.constants import ParseMode
+from telegram.error import Forbidden
 from telegram.ext import ContextTypes
 
 from bot import User, db, logger
