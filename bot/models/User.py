@@ -1,11 +1,9 @@
-import asyncio
 from typing import Optional
 
 from sqlalchemy import Column, Integer, String, Boolean, func, DateTime, BigInteger
 from sqlalchemy.orm import relationship
-from telegram.ext import ContextTypes, Updater, Application
+from telegram.ext import ContextTypes
 
-from bot.settings import settings
 from bot.models.BaseModel import BaseModel
 
 
