@@ -8,10 +8,6 @@ SessionLocal = sessionmaker(engine)
 
 db = SessionLocal()
 
-
-def recreate_database():
-    Base.metadata.drop_all(engine)
-    Base.metadata.create_all(engine)
-
 # Uncomment for recreating database
-# recreate_database()
+# Base.metadata.drop_all(engine)
+Base.metadata.create_all(engine)

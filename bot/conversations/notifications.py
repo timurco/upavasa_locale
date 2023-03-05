@@ -7,6 +7,7 @@ from telegram.ext import ContextTypes
 
 from bot import User, db, logger
 from bot.conversations import get_user_name
+from bot.models import Message
 from bot.settings import settings
 from bot.utils.humanization import gethumanday
 from bot.utils.i18n_start import set_lang
@@ -72,7 +73,10 @@ async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, t
         f"⌛️ Последнее {user.last_touch}, {naturaltime((datetime.utcnow() - user.last_touch))}")
 
     try:
-        await context.bot.send_message(user.tg_id, message, parse_mode=ParseMode.HTML)
+        answer = await context.bot.send_message(user.tg_id, message, parse_mode=ParseMode.HTML)
+        db.add(
+            Message(type=first['tithi'], user=user, message_id=answer.message_id)
+        )
     except Forbidden as e:
         logger.error(f'Пользователь заблочил бота, отключаем в базе. Ошибка: {e.__str__()}')
         user.active = False
