@@ -103,7 +103,7 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE) -> bool:
 
         # Если прошло меньше N дней от последнего уведомления
         last_touch = datetime.utcnow() - user.last_touch
-        if last_touch.days < 1:
+        if last_touch.seconds < settings.period_hours:
             logger.debug(
                 "Еще не время оповещать. " +
                 f"Пользователь: #{username}. " +
