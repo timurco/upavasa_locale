@@ -28,8 +28,11 @@ def get_days_keyboard():
         [
             InlineKeyboardButton(text='🌘 ' + t('words.only_ekadashi',
                                                ekadashi=t('words.ekadashi', count=2)), callback_data=str(EKADASHI)),
+        ],
+        [
             InlineKeyboardButton(text='🌑🌒🌕 ' + all_days_string(), callback_data=str(ALLDAYS)),
-        ], [
+        ],
+        [
             InlineKeyboardButton(text='🚫 ' + t('words.zero_days'), callback_data=str(ZERODAYS)),
             InlineKeyboardButton(text='❎ ' + t('words.cancel'), callback_data=str(CANCEL)),
         ],
