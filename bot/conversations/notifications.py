@@ -94,8 +94,9 @@ Optional[Message]:
     return None
 
 
-async def every_time(context: ContextTypes.DEFAULT_TYPE) -> bool:
+async def every_time(context: ContextTypes.DEFAULT_TYPE):
     users = db.query(User).all()
+    messages = []
     for user in users:
         # Если пользователь отказался от уведомлений
         if not user.active or user.days == 0:
@@ -105,7 +106,7 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE) -> bool:
 
         # Если прошло меньше N дней от последнего уведомления
         last_touch = datetime.utcnow() - user.last_touch
-        if last_touch.seconds < settings.period_hours:
+        if last_touch.total_seconds() < settings.period_seconds:
             logger.debug(
                 "Еще не время оповещать. " +
                 f"Пользователь: #{username}. " +
@@ -120,5 +121,17 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE) -> bool:
             logger.debug("🤫 Тихий час!")
             continue
 
-        await fasting_notification(user, context, tz, settings.notification_days)
-    return False
+        result = await fasting_notification(user, context, tz, settings.notification_days)
+        if result:
+            messages += [result]
+
+    if len(messages):
+        set_lang('ru')
+        msg = f'Я только что выслал сообщений <u>{len(messages)}</u>, следующим людям:'
+        for m in messages:
+            msg += f'\n{choice(["🌎", "🥰", "🤗", "❤️", "🥸", "😜", "😇", "🥳", "🤩"])} '
+            msg += f'<b>{m.message_id}</b>: '
+            msg += await m.user.get_user_html(context)
+            msg += f' [<i>{t("phrases." + m.type + "_full")}</i>]'
+
+        await context.bot.send_message(settings.developer, msg, parse_mode=ParseMode.HTML, disable_notification=True)
