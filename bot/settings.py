@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     # 2: за 2 дня и т.д.
     notification_days: int = 1
     # Период уведомлений в секундах
-    period_hours: int = 24 * 60 * 60
+    period_seconds: int = 24 * 60 * 60
 
 
 load_dotenv()

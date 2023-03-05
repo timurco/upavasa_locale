@@ -1,13 +1,13 @@
 from datetime import timedelta, datetime
+from typing import Optional
 
 from humanize import naturaltime
 from telegram.constants import ParseMode
 from telegram.error import Forbidden
 from telegram.ext import ContextTypes
 
-from bot import User, db, logger
+from bot import User, db, logger, Message
 from bot.conversations import get_user_name
-from bot.models import Message
 from bot.settings import settings
 from bot.utils.humanization import gethumanday
 from bot.utils.i18n_start import set_lang
@@ -16,13 +16,14 @@ from bot.utils.timezones import get_timezone, Timezone
 from fastings.calculations import calculate_fasting_days
 
 
-async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, tz: Timezone, until: int = 2) -> bool:
+async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, tz: Timezone, until: int = 2) -> \
+Optional[Message]:
     f = calculate_fasting_days(tz.place)
     first = f.iloc[0]
 
     if user.days == 1 and not first['tithi'] == 'ekadashi':
         logger.debug('Не экадаши')
-        return False
+        return None
 
     fast_day = first['starts']
     if fast_day.hour > 18:
@@ -38,10 +39,10 @@ async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, t
     logger.debug('Время: {:%-d %B, %H:%M}'.format(tz.time))
     logger.debug('Время (обнуленный): {:%-d %B, %H:%M}'.format(time_zero))
     logger.debug(f'До события: {until_event}')
-
+    logger.debug(f'{until_event.days} > {until} = {until_event.days > until}')
     if until_event.days > until:
         logger.debug(f"❎🗓 Мероприятие начнётся только {naturaltime(-until_event)}")
-        return False
+        return None
 
     message = namaskar() + '\n'
     message += t('words.regarding', place=tz.place) + ', '
@@ -72,24 +73,25 @@ async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, t
         f"🔔 Оповещение пользователя #{username}. " +
         f"⌛️ Последнее {user.last_touch}, {naturaltime((datetime.utcnow() - user.last_touch))}")
 
+    result = None
     try:
         answer = await context.bot.send_message(user.tg_id, message, parse_mode=ParseMode.HTML)
-        db.add(
-            Message(type=first['tithi'], user=user, message_id=answer.message_id)
-        )
+        result = Message(type=first['tithi'], user=user, message_id=answer.message_id)
+        db.add(result)
     except Forbidden as e:
         logger.error(f'Пользователь заблочил бота, отключаем в базе. Ошибка: {e.__str__()}')
         user.active = False
     user.last_touch = datetime.utcnow()
-    # if not safe:
-    #     # Если админский запрос, то не сохраняем в базу дату оповещения
-    #     return True
+
     try:
         db.commit()
+        if result:
+            db.refresh(result)
+            return result
     except Exception as e:
         db.rollback()
         raise Exception(f"Ошибка изменения в базе. Сообщение:{e.__str__()}")
-    return True
+    return None
 
 
 async def every_time(context: ContextTypes.DEFAULT_TYPE) -> bool:
