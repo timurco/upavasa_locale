@@ -3,6 +3,7 @@ from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
+    mode: str = 'PROD'
     token: str
     weather_token: str
     location_pic: str = str('./data/location.jpg')
