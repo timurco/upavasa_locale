@@ -7,16 +7,22 @@ from bot.conversations import *
 from bot.conversations.notifications import fasting_notification
 from bot.services.weather import get_city
 from bot.settings import settings
+from bot.utils import emo
 from bot.utils.i18n_start import set_lang
 from bot.utils.timezones import get_timezone
 from fastings.calculations import calculate_fasting_days
 
 
 async def admin_cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    if update.effective_user.id != settings.developer:
+        return ConversationHandler.END
+
     msg_input = update.message.text.split(" ", 1)
     if len(msg_input) != 2 or not (r := msg_input[1].split('-')):
         await update.message.reply_text("<b>format:</b> /admin_cancel [FROM]-[TO]", parse_mode=ParseMode.HTML)
         return ConversationHandler.END
+
+    last_message = await update.message.reply_text(emo.get(emo.time) + ' ' + t('words._moment'))
 
     _from = int(r[0])
     _to = int(r[1]) + 1
@@ -36,7 +42,7 @@ async def admin_cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
 
         db.delete(message)
     db.commit()
-    await update.message.reply_text(f"🗑 {deleted} из {_to-_from} сообщений удалено", parse_mode=ParseMode.HTML)
+    await context.bot.edit_message_text(f"🗑 {deleted} из {_to-_from} сообщений удалено", update.effective_user.id, last_message.id)
 
 
 async def admin_get_users(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
