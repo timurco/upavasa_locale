@@ -47,29 +47,31 @@ def get_utc_tithi(start_date: datetime, end_date: datetime) -> pd.DataFrame:
     return pd.DataFrame(tithis, columns=['tithi', 'starts', 'ends'])
 
 
-def calculate_fasting_days(tz: str, period: int = 30) -> pd.DataFrame:
+def calculate_fasting_days(tz: str, period: int = 30, starts=datetime.utcnow()) -> pd.DataFrame:
     """
         Расчитывает дни Экадаши, Амавасьи и Пурнимы исходя из Временной зоны
-
         **Более быстрый вариант расчета.**
+
+        *Все вычисления производятся в UTC!!!*
 
         Источник: https://github.com/Fallcon777/panchang/blob/master/panchang.py
 
         Args:
             tz (:obj:`str`): Строка временной зоны
             period (:obj:`int`): На сколько дней будет расчёт
+            starts (:obj:`datetime`): Начало расчета
 
     """
-    starts = datetime.utcnow() - timedelta(days=1)
-    ends = starts + timedelta(days=period)
-    tithis = get_utc_tithi(starts, ends)
+    starts_offset = starts - timedelta(days=1)
+    ends = starts_offset + timedelta(days=period)
+    tithis = get_utc_tithi(starts_offset, ends)
     # filter only from Start to End
-    tithis = tithis[~(tithis['starts'] < datetime.utcnow()) & ~(tithis['starts'] > ends)]
+    tithis = tithis[~(tithis['starts'] < starts) & ~(tithis['starts'] > ends)]
     # filter only Fasting Days
     tithis = tithis[tithis['tithi'].isin(['ekadashi', 'amavasya', 'purnima'])]
 
     # Convert to given Timezone
     zon = timezone(tz)
-    tithis['starts'] = tithis['starts'].apply(lambda dt:  utc.localize(dt).astimezone(zon))
-    tithis['ends'] = tithis['ends'].apply(lambda dt:  utc.localize(dt).astimezone(zon))
+    tithis['starts'] = tithis['starts'].apply(lambda dt: utc.localize(dt).astimezone(zon))
+    tithis['ends'] = tithis['ends'].apply(lambda dt: utc.localize(dt).astimezone(zon))
     return tithis
