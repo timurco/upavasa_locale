@@ -32,5 +32,6 @@ def gethumanday(event_date, tz: Timezone):
         return DAY_ALTERNATIVES[diff.days]
 
     if locale.getlocale(locale.LC_TIME)[0] and 'en' in locale.getlocale(locale.LC_TIME)[0]:
-        return 'at ' + humanize.naturaltime(-diff)
-    return humanize.naturaltime(-diff)
+        return 'at ' + humanize.naturaltime(-diff_real)
+
+    return humanize.naturaltime(-diff_real)
