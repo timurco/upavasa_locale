@@ -16,8 +16,13 @@ from bot.utils.timezones import get_timezone, Timezone
 from fastings.calculations import calculate_fasting_days
 
 
-async def fasting_notification(user: User, context: ContextTypes.DEFAULT_TYPE, tz: Timezone, until: int = 2) -> \
-Optional[Message]:
+async def fasting_notification(
+        user: User, context: ContextTypes.DEFAULT_TYPE, tz: Timezone, until: int = 2
+) -> Optional[Message]:
+    if settings.mode == 'DEV':
+        # Кастомное время для отладки
+        tz.time += timedelta(seconds=-15 * 3600)
+
     f = calculate_fasting_days(tz.place)
     first = f.iloc[0]
 
@@ -29,7 +34,6 @@ Optional[Message]:
     if fast_day.hour > 18:
         fast_day += timedelta(days=1)
 
-    # tz.time += timedelta(days=1)
     time_zero = tz.time.replace(hour=0, minute=0, second=0, microsecond=0)
     fast_day_zero = fast_day.replace(tzinfo=None).replace(hour=0, minute=0, second=0, microsecond=0)
     until_event = fast_day_zero - time_zero
@@ -86,7 +90,9 @@ Optional[Message]:
     except Forbidden as e:
         logger.error(f'Пользователь заблочил бота, отключаем в базе. Ошибка: {e.__str__()}')
         user.active = False
-    user.last_touch = datetime.utcnow()
+
+    if not (settings.mode == 'DEV' and user.tg_id == settings.developer):
+        user.last_touch = datetime.utcnow()
 
     try:
         db.commit()
