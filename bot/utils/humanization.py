@@ -18,9 +18,9 @@ def gethumanday(event_date, tz: Timezone):
     diff_real = event_date - tz.time
     diff = event_date - midnight
 
-    logger.debug('Midnight: {:%-d %B, %H:%M}'.format(midnight))
-    logger.debug(f'Разница (реальная): {diff_real}')
-    logger.debug(f'Разница (с смещением): {diff}')
+    logger.trace('Midnight: {:%-d %B, %H:%M}'.format(midnight))
+    logger.trace(f'Разница (реальная): {diff_real}')
+    logger.trace(f'Разница (с смещением): {diff}')
 
     DAY_ALTERNATIVES = {
         0: t("words.today"),

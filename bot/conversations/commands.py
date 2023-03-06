@@ -20,7 +20,7 @@ async def error_handler(update: object, context: CallbackContext) -> None:
     if type(context.error).__name__ == 'NetworkError':
         tb_list = traceback.format_exception(None, context.error, context.error.__traceback__)
         tb_string = ''.join(tb_list[-5:])
-        logger.debug(msg=f'NetworkError:\n{tb_string}')
+        logger.trace(msg=f'NetworkError:\n{tb_string}')
         # await context.bot.send_message(
         #     chat_id=settings.developer,
         #     text=f'<b>NetworkError</b>\n<pre>{html.escape(tb_string)}</pre>', parse_mode=ParseMode.HTML)
@@ -110,7 +110,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 
 async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active: bool = True) -> int:
-    logger.debug(f"Пробуем добавить или изменить нового пользователя: {context.user_data}")
+    logger.trace(f"Пробуем добавить или изменить нового пользователя: {context.user_data}")
     user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
     i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
     new_user = not user

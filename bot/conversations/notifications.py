@@ -22,7 +22,7 @@ Optional[Message]:
     first = f.iloc[0]
 
     if user.days == 1 and not first['tithi'] == 'ekadashi':
-        logger.debug('Не экадаши')
+        logger.trace('Не экадаши')
         return None
 
     fast_day = first['starts']
@@ -34,14 +34,19 @@ Optional[Message]:
     fast_day_zero = fast_day.replace(tzinfo=None).replace(hour=0, minute=0, second=0, microsecond=0)
     until_event = fast_day_zero - time_zero
 
-    logger.debug('День голодания: {:%-d %B, %H:%M}'.format(fast_day))
-    logger.debug('День голодания (обнуленный): {:%-d %B, %H:%M}'.format(fast_day_zero))
-    logger.debug('Время: {:%-d %B, %H:%M}'.format(tz.time))
-    logger.debug('Время (обнуленный): {:%-d %B, %H:%M}'.format(time_zero))
-    logger.debug(f'До события: {until_event}')
-    logger.debug(f'{until_event.days} > {until} = {until_event.days > until}')
+    logger.trace('День голодания: {:%-d %B, %H:%M}'.format(fast_day))
+    logger.trace('День голодания (обнуленный): {:%-d %B, %H:%M}'.format(fast_day_zero))
+    logger.trace('Время: {:%-d %B, %H:%M}'.format(tz.time))
+    logger.trace('Время (обнуленный): {:%-d %B, %H:%M}'.format(time_zero))
+    logger.trace(f'До события: {until_event}')
+    logger.trace(f'{until_event.days} > {until} = {until_event.days > until}')
+
+    if until_event.days < 1:
+        logger.trace("❎🗓 Мероприятие уже идет")
+        return None
+
     if until_event.days > until:
-        logger.debug(f"❎🗓 Мероприятие начнётся только {naturaltime(-until_event)}")
+        logger.trace(f"❎🗓 Мероприятие начнётся только {naturaltime(-until_event)}")
         return None
 
     message = namaskar() + '\n'
@@ -107,7 +112,7 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE):
         # Если прошло меньше N дней от последнего уведомления
         last_touch = datetime.utcnow() - user.last_touch
         if last_touch.total_seconds() < settings.period_seconds:
-            logger.debug(
+            logger.trace(
                 "Еще не время оповещать. " +
                 f"Пользователь: #{username}. " +
                 f"Последнее оповещение: {user.last_touch}, прошло всего {naturaltime(-last_touch)}")
@@ -116,9 +121,9 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE):
         set_lang(user.lang_code)
 
         tz = get_timezone(float(user.lat), float(user.long))
-        logger.debug("Пользователь: %s, Локация: %s, Время: %s" % (username, tz.place, tz.time))
+        logger.trace("Пользователь: %s, Локация: %s, Время: %s" % (username, tz.place, tz.time))
         if tz.time.hour < 7 or tz.time.hour > 22:
-            logger.debug("🤫 Тихий час!")
+            logger.trace("🤫 Тихий час!")
             continue
 
         result = await fasting_notification(user, context, tz, settings.notification_days)

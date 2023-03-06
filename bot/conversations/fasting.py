@@ -63,7 +63,7 @@ async def demand_fasting(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
     last_demand = datetime.datetime.utcnow() - user.last_demand
     if last_demand.seconds < 30 and user.tg_id != settings.developer:
-        logger.debug(f"Последний запрос (минуты): {last_demand.seconds // 60}")
+        logger.trace(f"Последний запрос (минуты): {last_demand.seconds // 60}")
         await update.message.reply_text(t('phrases.to_early') + emo.get(emo.namo), parse_mode=ParseMode.HTML)
         return ConversationHandler.END
 
