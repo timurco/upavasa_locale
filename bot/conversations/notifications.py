@@ -1,3 +1,4 @@
+import asyncio
 from datetime import timedelta, datetime
 from typing import Optional
 
@@ -146,3 +147,5 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE):
             msg += f' [<i>{t("phrases." + m.type + "_full")}</i>]'
 
         await context.bot.send_message(settings.developer, msg, parse_mode=ParseMode.HTML, disable_notification=True)
+        # Пауза между сообщениями чтобы не нагружать API телеграм
+        await asyncio.sleep(settings.sending_wait)

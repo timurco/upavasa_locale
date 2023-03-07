@@ -9,8 +9,10 @@ class Settings(BaseSettings):
     location_pic: str = str('./data/location.jpg')
     database_url: str = 'postgresql://postgres:@localhost/botsociety'
     developer: int = 1240012
-    # Interval for sending messages ( seconds )
+    # Интервал между рассылками ( seconds )
     interval: int = 120 * 30
+    # Паузе между сообщениями (секунды)
+    sending_wait: int = 3
 
     # Шаг расчета для Титхи в минутах для оповещений в секундах
     # например: 3 * 60 * 60 - 3 часа
