@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     database_url: str = 'postgresql://postgres:@localhost/botsociety'
     developer: int = 1240012
     # Interval for sending messages ( seconds )
-    interval: int = 60 * 30
+    interval: int = 120 * 30
 
     # Шаг расчета для Титхи в минутах для оповещений в секундах
     # например: 3 * 60 * 60 - 3 часа
