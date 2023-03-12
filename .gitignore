@@ -14,3 +14,4 @@ env/
 .idea/am-barnaul-bot.iml
 .idea/misc.xml
 /_requirements.txt
+/data/*.csv

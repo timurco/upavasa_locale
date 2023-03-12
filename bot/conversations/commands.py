@@ -17,7 +17,7 @@ async def error_handler(update: object, context: CallbackContext) -> None:
     """Log the error and send a telegram message to notify the developer."""
 
     # Exclude Network Errors
-    if type(context.error).__name__ == 'NetworkError':
+    if type(context.error).__name__ in ['NetworkError', 'TimedOut']:
         tb_list = traceback.format_exception(None, context.error, context.error.__traceback__)
         tb_string = ''.join(tb_list[-5:])
         logger.trace(msg=f'NetworkError:\n{tb_string}')
