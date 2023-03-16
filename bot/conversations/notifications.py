@@ -144,7 +144,7 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE):
             msg += f'\n{choice(["🌎", "🥰", "🤗", "❤️", "🥸", "😜", "😇", "🥳", "🤩"])} '
             msg += f'<b>{m.message_id}</b>: '
             msg += await m.user.get_user_html(context)
-            msg += f' [<i>{t("phrases." + m.type + "_full")}</i>]'
+            msg += f' [<i>{t("words." + m.type, count=1)}</i>]'
 
         await context.bot.send_message(settings.developer, msg, parse_mode=ParseMode.HTML, disable_notification=True)
         # Пауза между сообщениями чтобы не нагружать API телеграм
