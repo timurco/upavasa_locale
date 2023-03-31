@@ -137,6 +137,8 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE):
         if result:
             messages += [result]
 
+        await asyncio.sleep(settings.sending_wait)
+
     if len(messages):
         set_lang('ru')
         msg = f'Я только что выслал сообщений <u>{len(messages)}</u>, следующим людям:'
@@ -148,4 +150,3 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE):
 
         await context.bot.send_message(settings.developer, msg, parse_mode=ParseMode.HTML, disable_notification=True)
         # Пауза между сообщениями чтобы не нагружать API телеграм
-        await asyncio.sleep(settings.sending_wait)
