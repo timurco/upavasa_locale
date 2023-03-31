@@ -20,9 +20,9 @@ from fastings.calculations import calculate_fasting_days
 async def fasting_notification(
         user: User, context: ContextTypes.DEFAULT_TYPE, tz: Timezone, until: int = 2
 ) -> Optional[Message]:
-    if settings.mode == 'DEV':
-        # Кастомное время для отладки
-        tz.time += timedelta(seconds=-15 * 3600)
+    # if settings.mode == 'DEV':
+    #     # Кастомное время для отладки
+    #     tz.time += timedelta(seconds=-15 * 3600)
 
     f = calculate_fasting_days(tz.place)
     first = f.iloc[0]

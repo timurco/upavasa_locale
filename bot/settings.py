@@ -12,7 +12,7 @@ class Settings(BaseSettings):
     # Интервал между рассылками ( seconds )
     interval: int = 120 * 30
     # Паузе между сообщениями (секунды)
-    sending_wait: int = 3
+    sending_wait: int = 5
 
     # Шаг расчета для Титхи в минутах для оповещений в секундах
     # например: 3 * 60 * 60 - 3 часа
@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     # За сколько дней начать оповещения
     # 1: за 1 день
     # 2: за 2 дня и т.д.
-    notification_days: int = 1
+    notification_days: int = 2
     # Период уведомлений в секундах
     period_seconds: int = 24 * 60 * 60
 

@@ -14,6 +14,7 @@ def gethumanday(event_date, tz: Timezone):
         event_date = event_date.replace(hour=6, minute=0)
 
     # seconds=4*60*60 – начинаем считать день с 4:00 утра
+    logger.trace('Текущее время: {:%-d %B, %H:%M}'.format(tz.time))
     midnight = (tz.time - timedelta(seconds=4 * 60 * 60)).replace(hour=0, minute=0)
     diff_real = event_date - tz.time
     diff = event_date - midnight
