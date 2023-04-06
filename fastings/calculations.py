@@ -64,6 +64,7 @@ def calculate_fasting_days(tz: str, period: int = 30, starts=datetime.utcnow()) 
     """
     starts_offset = starts - timedelta(days=1)
     ends = starts_offset + timedelta(days=period)
+    print(starts_offset)
     tithis = get_utc_tithi(starts_offset, ends)
     # filter only from Start to End
     tithis = tithis[~(tithis['starts'] < starts) & ~(tithis['starts'] > ends)]
