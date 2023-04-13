@@ -25,6 +25,9 @@ class Settings(BaseSettings):
     # Период уведомлений в секундах
     period_seconds: int = 24 * 60 * 60
 
+    # Максимальное количество символов в телеграм сообщении
+    telegram_max_length: 4096
+
 
 load_dotenv()
 

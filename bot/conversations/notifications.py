@@ -137,9 +137,11 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE):
         if result:
             messages += [result]
 
+        # Пауза между сообщениями чтобы не нагружать API телеграм
         await asyncio.sleep(settings.sending_wait)
 
     if len(messages):
+
         set_lang('ru')
         msg = f'Я только что выслал сообщений <u>{len(messages)}</u>, следующим людям:'
         for m in messages:
@@ -148,5 +150,10 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE):
             msg += await m.user.get_user_html(context)
             msg += f' [<i>{t("words." + m.type, count=1)}</i>]'
 
+        trun_msg_suffix = "\n... И еще NNNNN сообщений остальным маргам."
+        if len(msg) > settings.telegram_max_length - len(trun_msg_suffix) - 10:  # 10 запас
+            trun_msg_count = len(messages) - (settings.telegram_max_length - len(trun_msg_suffix))
+            cut_to = settings.telegram_max_length - len(trun_msg_suffix)
+            msg = msg[:cut_to] + trun_msg_suffix.replace("NNNNN", str(trun_msg_count))
+
         await context.bot.send_message(settings.developer, msg, parse_mode=ParseMode.HTML, disable_notification=True)
-        # Пауза между сообщениями чтобы не нагружать API телеграм
