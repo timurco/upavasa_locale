@@ -7,7 +7,7 @@ from telegram.constants import ParseMode
 from telegram.error import Forbidden
 from telegram.ext import ContextTypes
 
-from bot import User, db, logger, Message
+from bot import User, db, logger, Message, utils
 from bot.conversations import get_user_name
 from bot.settings import settings
 from bot.utils.humanization import gethumanday
@@ -150,10 +150,6 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE):
             msg += await m.user.get_user_html(context)
             msg += f' [<i>{t("words." + m.type, count=1)}</i>]'
 
-        trun_msg_suffix = "\n... И еще NNNNN сообщений остальным маргам."
-        if len(msg) > settings.telegram_max_length - len(trun_msg_suffix) - 10:  # 10 запас
-            trun_msg_count = len(messages) - (settings.telegram_max_length - len(trun_msg_suffix))
-            cut_to = settings.telegram_max_length - len(trun_msg_suffix)
-            msg = msg[:cut_to] + trun_msg_suffix.replace("NNNNN", str(trun_msg_count))
+        msg = utils.truncate_margiis(msg)
 
         await context.bot.send_message(settings.developer, msg, parse_mode=ParseMode.HTML, disable_notification=True)

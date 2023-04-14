@@ -6,7 +6,7 @@ import traceback
 import i18n
 from telegram.ext import ConversationHandler, CallbackContext
 
-from bot import db, emo, logger, User
+from bot import db, emo, logger, User, utils
 from bot.conversations import *
 from bot.settings import settings
 from bot.utils.emo import sad
@@ -45,18 +45,7 @@ async def error_handler(update: object, context: CallbackContext) -> None:
         f'\n<pre>{html.escape(tb_string)}</pre>'
     )
 
-    # Maximum characters of telegram messages is 9500
-    def truncate_middle(s, n):
-        if len(s) <= n:
-            # string is already short-enough
-            return s
-        # half of the size, minus the 3 .'s
-        n_2 = int(n) // 2 - 3
-        # whatever's left
-        n_1 = n - n_2 - 3
-        return '{0}...{1}'.format(s[:n_1], s[-n_2:])
-
-    message = truncate_middle(message, 4096)
+    message = utils.truncate_middle(message)
     # if len(message) > 4096:
     #     for x in range(0, len(message), 4096):
     #         await context.bot.send_message(chat_id=settings.developer, text=message[x:x + 4096], parse_mode='HTML')
@@ -147,8 +136,10 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
         db.commit()
     except Exception as e:
         db.rollback()
-        await context.bot.send_message(update.effective_user.id, t('phrases.something_wrong') + '. ' + t('phrases.try_again') + '... /start')
-        raise Exception(f"❌ У пользователя {update.effective_user.mention_html()} не получилось зарегистрироваться. Сообщение:{e.__str__()}")
+        await context.bot.send_message(update.effective_user.id,
+                                       t('phrases.something_wrong') + '. ' + t('phrases.try_again') + '... /start')
+        raise Exception(
+            f"❌ У пользователя {update.effective_user.mention_html()} не получилось зарегистрироваться. Сообщение:{e.__str__()}")
     if new_user:
         await context.bot.send_message(
             settings.developer,
