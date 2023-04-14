@@ -150,6 +150,6 @@ async def every_time(context: ContextTypes.DEFAULT_TYPE):
             msg += await m.user.get_user_html(context)
             msg += f' [<i>{t("words." + m.type, count=1)}</i>]'
 
-        msg = utils.truncate_margiis(msg)
+        msg = utils.truncate_margiis(msg, len(messages))
 
         await context.bot.send_message(settings.developer, msg, parse_mode=ParseMode.HTML, disable_notification=True)
