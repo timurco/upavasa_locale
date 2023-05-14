@@ -28,6 +28,8 @@ class Settings(BaseSettings):
     # Максимальное количество символов в телеграм сообщении
     telegram_max_length: int = 4096
 
+    is_send_report: bool = False
+
 
 load_dotenv()
 
