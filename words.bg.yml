@@ -1,0 +1,42 @@
+bg:
+  name: Упаваса Бот
+  today: днес
+  tomorrow: утре
+  aftertomorrow: следуте ден
+  namaskar: намаскар
+  friend:
+    - приятел
+    - човек
+  ekadashi:
+    one: Екадаши
+    many: Екадаши
+  only_ekadashi: Само %{ekadashi}
+  purnima:
+    one: Пурнима
+    many: Пурними
+  amavasya:
+    one: Амавасья
+    many: Амавасьи
+  all_days: "%{ekadashi} и %{purnima} и %{amavasya}"
+  zero_days: Откажете се от уведомленията
+  regarding: Според вашето местоположение (<b>%{place}</b>)
+  starts: започва
+  _and_now:
+    - И сега
+    - Сега
+  cancel: Отмяна
+  yes_answer: Да
+  no_answer: Не
+  _moment:
+    - Момент...
+    - Малко по-късно...
+    - Изчакай...
+    - Почакай...
+  _ok:
+    - Прието
+    - Ясно
+    - Разбрах
+    - Отлично
+    - Супер
+    - Клас
+    - Хубаво
