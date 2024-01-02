@@ -141,9 +141,10 @@ async def set_record(update: Update, context: ContextTypes.DEFAULT_TYPE, active:
         raise Exception(
             f"❌ У пользователя {update.effective_user.mention_html()} не получилось зарегистрироваться. Сообщение:{e.__str__()}")
     if new_user:
+        total_active_users = db.query(User).filter(User.active == True).count()
         await context.bot.send_message(
             settings.developer,
-            f"❇️ У нас новый пользователь:\nid: {user.id} – {update.effective_user.mention_html()}",
+            f"❇️ У нас новый пользователь:\nid: {user.id} [всего {total_active_users}] – {update.effective_user.mention_html()} [{user.lang_code}]",
             parse_mode=ParseMode.HTML,
             disable_notification=True,
         )
