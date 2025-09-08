@@ -1,0 +1,41 @@
+de:
+  name: Upavasa Bot
+  today: heute
+  tomorrow: morgen
+  aftertomorrow: übermorgen
+  namaskar: namaste
+  friend:
+    - Freund
+    - Mensch
+  ekadashi:
+    one: Ekadashi
+    many: Ekadashi
+  only_ekadashi: Nur %{ekadashi}
+  purnima:
+    one: Purnima
+    many: Purnima
+  amavasya:
+    one: Amavasya
+    many: Amavasya
+  all_days: "%{ekadashi}, %{purnima} und %{amavasya}"
+  zero_days: Abmelden
+  regarding: Entsprechend Ihrem Standort (<b>%{place}</b>)
+  starts: beginnt
+  _and_now:
+    - Und jetzt
+    - Jetzt
+  cancel: Abbrechen
+  yes_answer: 'Ja'
+  no_answer: 'Nein'
+  _moment:
+    - Eine Sekunde...
+    - Einen Moment...
+    - Bitte warten...
+    - Einen Moment, bitte...
+  _ok:
+    - Klar
+    - Akzeptieren
+    - Gut
+    - OK
+    - Super
+    - Schön

@@ -1,0 +1,23 @@
+de:
+  help: |
+    %{my_name}
+    %{mission}
+    <b>Die folgenden Befehle sind verfügbar:</b>
+    • /help - Informationen zu diesen Befehlen
+    • /start - Beginnen Sie erneut mit dem Hinzufügen von Einstellungen oder bearbeiten Sie die aktuellen (Standort und Tag)
+    • /cancel - Dateneingabe abbrechen
+    • /update_days - Fastentage aktualisieren. Ekadashi, oder Ekadashi, Purnima und Amavasya
+    • /update_location - Ihren Standort aktualisieren
+    • /get_fasting - Berechnen und erhalten Sie eine Liste der kommenden Fasten gemäß Ihrem Standort (<i>es gibt eine Einschränkung - nicht mehr als 1 Anfrage pro 10 Minuten.</i>)
+    • /stop - Sich von der Mailingliste entfernen
+    • /donate - Zeigen wo Sie spenden können
+  donate_jamalpur: |
+    Ein sehr inspirierendes Projekt ist derzeit im Bau
+    betitelt <a href='https://anandasambhuti.org/ways-to-donate/'>Ananda Sambhuti</a>!
+    Ich wäre sehr glücklich, wenn Sie es unterstützen könnten! 🙏
+    In den Zahlungskommentaren können Sie hinzufügen, dass Sie vom Upavas Bot kommen. Vielen Dank!
+
+    <b>Hier ist der Link:</b>
+    https://anandasambhuti.org/ways-to-donate/
+
+

@@ -1,0 +1,52 @@
+pl:
+  my_name: Nazywam się <b>%{name}</b>.
+  amavasya_full: <b>Amavasya</b> 🌑 (Nów księżyca)
+  purnima_full: <b>Purnima</b> 🌕 (Pełnia księżyca)
+  ekadashi_full: <b>Ekadashi</b> 🌘 – jedenasty dzień po nowiu lub pełni księżyca, najszczęśliwszy dzień na post
+  tithi_description: >-
+    Czasy rozpoczęcia i zakończenia Tithi:
+  can_stop: Możesz zrezygnować z listy powiadomień w dowolnym momencie używając polecenia /stop.
+  mission: >
+    Jestem tutaj, aby liczyć dni postu
+    (<i>Ekadashi, Amavasya, Purnima</i>)
+    zgodnie z Twoją lokalizacją.
+  start_choose_location: >
+    Proszę kliknąć na spinacz (gdzie pliki są zwykle załączane)
+    i wybrać <b>Lokalizację</b>
+    lub po prostu <b>wpisać nazwę miasta</b> lub lokalizacji
+  location_first: Aby zacząć, dodaj lokalizację poprzez polecenie /start
+  ready_to_send: Dzień przed %{days}, wyślę Ci przypomnienie.
+  to_danate: Jeśli chcesz przekazać datek, proszę kliknij tutaj po szczegóły. /donate 🙃
+  days_update: >
+    Możesz aktualizować dni, w których poszczysz w dowolnym momencie poprzez polecenie /update_days
+  start_choose_day: >
+    %{and_now}, wybierzmy dni postu, dla których chcesz otrzymywać powiadomienia.
+  location_update: >
+    Możesz aktualizować swoją lokalizację w dowolnym momencie poprzez polecenie /update_location
+  set_location: Twoja lokalizacja została zaktualizowana!
+  no_user: >
+    Nie jesteś na mojej liście. Więc nie ma tutaj nic do zatrzymania.
+    Ale jeśli chcesz, możesz rozpocząć powiadomienia poprzez /start
+  no_send: >-
+    Nie będę wysyłać Ci powiadomień, ale możesz używać polecenia /get_fasting
+    w dowolnym momencie, aby uzyskać listę nadchodzących dni postu zgodnie z Twoją lokalizacją!
+  stop: Anulowałem Twoją subskrypcję powiadomień..
+  again: Naciśnij /start jeśli chcesz zacząć ponownie
+  try_again: Spróbuj ponownie!
+  something_wrong: Coś jest nie tak z tym żądaniem
+  check_location: Sprawdź czy prawidłowo znalazłem Twoją lokalizację?
+  no_answer: >
+    Bez opcji odpowiedzi, niestety nie będę mógł obliczyć dni postu
+  to_early: >
+    Proszę nie obciążaj mnie tak często obliczeniami.
+    Te liczby, sinusy, cosinusy ... To już zaczyna boleć moją głowę.
+    Poczekaj kilka minut!
+  meet_first: |
+    Najpierw potrzebuję Twojej lokalizacji i dni, w których chcesz pościć.
+    Naciśnij /start, aby zacząć.
+  tithi_answer: |-
+    Następne szczęśliwe dni postu dla <b>%{place}</b> (UTC%{utc}):
+  tithi_wait: Poczekaj sekundę, spojrzę na niebo. Potrzebuję wykonać obliczenia... X*y*sin*cos*tan*E*pi/2...
+  location_error: |
+    Coś jest nie tak ze współrzędnymi. Nie mogę obliczyć.
+    Spróbuj zaktualizować swoją lokalizację poprzez polecenie /update_location',

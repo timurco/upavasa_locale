@@ -1,0 +1,41 @@
+sv:
+  name: Upavasa Bot
+  today: idag
+  tomorrow: imorgon
+  aftertomorrow: i övermorgon
+  namaskar: namaste
+  friend:
+    - vän
+    - människa
+  ekadashi:
+    one: Ekadashi
+    many: Ekadashi
+  only_ekadashi: Bara %{ekadashi}
+  purnima:
+    one: Purnima
+    many: Purnima
+  amavasya:
+    one: Amavasya
+    many: Amavasya
+  all_days: "%{ekadashi}, %{purnima} och %{amavasya}"
+  zero_days: Avregistrera
+  regarding: Enligt din plats (<b>%{place}</b>)
+  starts: börjar
+  _and_now:
+    - Och nu
+    - Nu
+  cancel: Avbryt
+  yes_answer: 'Ja'
+  no_answer: 'Nej'
+  _moment:
+    - En sekund...
+    - En stund...
+    - Var vänlig vänta...
+    - En stund, tack...
+  _ok:
+    - Klart
+    - Acceptera
+    - Bra
+    - OK
+    - Super
+    - Bra

@@ -1,0 +1,41 @@
+fi:
+  name: Upavasa Botti
+  today: tänään
+  tomorrow: huomenna
+  aftertomorrow: ylihuomenna
+  namaskar: namaste
+  friend:
+    - ystävä
+    - ihminen
+  ekadashi:
+    one: Ekadashi
+    many: Ekadashi
+  only_ekadashi: Vain %{ekadashi}
+  purnima:
+    one: Purnima
+    many: Purnima
+  amavasya:
+    one: Amavasya
+    many: Amavasya
+  all_days: "%{ekadashi}, %{purnima} ja %{amavasya}"
+  zero_days: Peruuta tilaus
+  regarding: Sijaintisi mukaan (<b>%{place}</b>)
+  starts: alkaa
+  _and_now:
+    - Ja nyt
+    - Nyt
+  cancel: Peruuta
+  yes_answer: 'Kyllä'
+  no_answer: 'Ei'
+  _moment:
+    - Sekunti...
+    - Hetki...
+    - Odota...
+    - Hetki, kiitos...
+  _ok:
+    - Selvä
+    - Hyväksy
+    - Hyvä
+    - OK
+    - Super
+    - Hienoa

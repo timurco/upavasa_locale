@@ -1,0 +1,52 @@
+fr:
+  my_name: Je m'appelle <b>%{name}</b>.
+  amavasya_full: <b>Amavasya</b> 🌑 (Nouvelle lune)
+  purnima_full: <b>Purnima</b> 🌕 (Pleine lune)
+  ekadashi_full: <b>Ekadashi</b> 🌘 – onzième jour après la nouvelle lune ou pleine lune, le jour le plus propice pour le jeûne
+  tithi_description: >-
+    Les heures de début et de fin du Tithi :
+  can_stop: Vous pouvez vous désabonner de la liste de notifications à tout moment en utilisant la commande /stop.
+  mission: >
+    Je suis là pour compter les jours de jeûne
+    (<i>Ekadashi, Amavasya, Purnima</i>)
+    selon votre emplacement.
+  start_choose_location: >
+    Veuillez cliquer sur le trombone (où les fichiers sont généralement attachés)
+    et choisir <b>Emplacement</b>
+    ou simplement <b>saisir le nom de la ville</b> ou de l'emplacement
+  location_first: Pour commencer, ajoutez un emplacement via la commande /start
+  ready_to_send: La veille de %{days}, je vous enverrai un rappel.
+  to_danate: Si vous souhaitez faire un don, veuillez cliquer ici pour les détails. /donate 🙃
+  days_update: >
+    Vous pouvez mettre à jour les jours où vous jeûnez à tout moment via la commande /update_days
+  start_choose_day: >
+    %{and_now}, choisissons les jours de jeûne pour lesquels vous souhaitez recevoir des notifications.
+  location_update: >
+    Vous pouvez mettre à jour votre emplacement à tout moment via la commande /update_location
+  set_location: Votre emplacement a été mis à jour !
+  no_user: >
+    Vous n'êtes pas sur ma liste. Il n'y a donc rien à arrêter ici.
+    Mais si vous voulez, vous pouvez commencer les notifications via /start
+  no_send: >-
+    Je ne vous enverrai pas de notifications, mais vous pouvez utiliser la commande /get_fasting
+    à tout moment pour obtenir une liste des prochains jours de jeûne selon votre emplacement !
+  stop: J'ai annulé votre abonnement aux notifications..
+  again: Appuyez sur /start si vous voulez recommencer
+  try_again: Essayez encore !
+  something_wrong: Quelque chose ne va pas avec cette demande
+  check_location: Vérifiez si j'ai trouvé votre emplacement correctement ?
+  no_answer: >
+    Sans options de réponse, je ne pourrai malheureusement pas calculer les jours de jeûne
+  to_early: >
+    S'il vous plaît, ne me surchargez pas si souvent avec des calculs.
+    Ces nombres, sinus, cosinus ... Ça commence déjà à me faire mal à la tête.
+    Attendez quelques minutes !
+  meet_first: |
+    D'abord, j'ai besoin de votre emplacement et des jours où vous voulez jeûner.
+    Appuyez sur /start pour commencer.
+  tithi_answer: |-
+    Les prochains jours propices de jeûne pour <b>%{place}</b> (UTC%{utc}) :
+  tithi_wait: Attendez une seconde, je vais regarder le ciel. Besoin de faire les calculs... X*y*sin*cos*tan*E*pi/2...
+  location_error: |
+    Quelque chose ne va pas avec les coordonnées. Je ne peux pas calculer.
+    Essayez de mettre à jour votre emplacement via la commande /update_location',

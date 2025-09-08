@@ -1,0 +1,52 @@
+pt-pt:
+  my_name: O meu nome é <b>%{name}</b>.
+  amavasya_full: <b>Amavasya</b> 🌑 (Lua nova)
+  purnima_full: <b>Purnima</b> 🌕 (Lua cheia)
+  ekadashi_full: <b>Ekadashi</b> 🌘 – décimo primeiro dia após a lua nova ou cheia, o dia mais auspicioso para o jejum
+  tithi_description: >-
+    Os horários de início e fim do Tithi:
+  can_stop: Pode cancelar a subscrição da lista de notificações em qualquer altura utilizando o comando /stop.
+  mission: >
+    Estou aqui para contar os dias de jejum
+    (<i>Ekadashi, Amavasya, Purnima</i>)
+    segundo a sua localização.
+  start_choose_location: >
+    Por favor, clique no clipe (onde os ficheiros são normalmente anexados)
+    e escolha <b>Localização</b>
+    ou simplesmente <b>escreva o nome da cidade</b> ou localização
+  location_first: Para começar, adicione uma localização através do comando /start
+  ready_to_send: Um dia antes de %{days}, enviarei uma lembrança.
+  to_danate: Se desejar doar, por favor clique aqui para detalhes. /donate 🙃
+  days_update: >
+    Pode actualizar os dias em que jejua em qualquer altura através do comando /update_days
+  start_choose_day: >
+    %{and_now}, vamos escolher os dias de jejum para os quais deseja receber notificações.
+  location_update: >
+    Pode actualizar a sua localização em qualquer altura através do comando /update_location
+  set_location: A sua localização foi actualizada!
+  no_user: >
+    Não está na minha lista. Por isso, não há nada para parar aqui.
+    Mas se quiser, pode iniciar notificações via /start
+  no_send: >-
+    Não lhe enviarei notificações, mas pode utilizar o comando /get_fasting
+    em qualquer altura para obter uma lista dos próximos dias de jejum segundo a sua localização!
+  stop: Cancelei a sua subscrição de notificações..
+  again: Prima /start se quiser começar novamente
+  try_again: Tente novamente!
+  something_wrong: Algo está errado com este pedido
+  check_location: Verifique se encontrei a sua localização correctamente?
+  no_answer: >
+    Sem opções de resposta, infelizmente não poderei calcular os dias de jejum
+  to_early: >
+    Por favor, não me sobrecarregue com cálculos tão frequentemente.
+    Estes números, senos, cosenos ... Isto já está a começar a doer-me a cabeça.
+    Aguarde alguns minutos!
+  meet_first: |
+    Primeiro, preciso da sua localização e dos dias em que quer jejuar.
+    Prima /start para começar.
+  tithi_answer: |-
+    Os próximos dias auspiciosos de jejum para <b>%{place}</b> (UTC%{utc}):
+  tithi_wait: Aguarde um segundo, vou olhar para o céu. Preciso de fazer os cálculos... X*y*sin*cos*tan*E*pi/2...
+  location_error: |
+    Algo está errado com as coordenadas. Não consigo calcular.
+    Tente actualizar a sua localização através do comando /update_location',
