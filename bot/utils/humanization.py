@@ -13,10 +13,19 @@ def gethumanday(event_date, tz: Timezone):
         event_date = datetime.fromordinal(event_date.toordinal())
         event_date = event_date.replace(hour=6, minute=0)
 
+    # Используем timezone-aware datetime для корректного расчета
+    import pytz
+    timezone = pytz.timezone(tz.place)
+    current_time = datetime.utcnow().replace(tzinfo=pytz.UTC).astimezone(timezone)
+
+    # Если event_date не имеет tzinfo, предполагаем, что он в том же timezone, что и пользователь
+    if event_date.tzinfo is None:
+        event_date = timezone.localize(event_date)
+
     # seconds=4*60*60 – начинаем считать день с 4:00 утра
-    logger.trace('Текущее время: {:%-d %B, %H:%M}'.format(tz.time))
-    midnight = (tz.time - timedelta(seconds=4 * 60 * 60)).replace(hour=0, minute=0)
-    diff_real = event_date - tz.time
+    logger.trace('Текущее время: {:%-d %B, %H:%M}'.format(current_time))
+    midnight = (current_time - timedelta(seconds=4 * 60 * 60)).replace(hour=0, minute=0, second=0, microsecond=0)
+    diff_real = event_date - current_time
     diff = event_date - midnight
 
     logger.trace('Midnight: {:%-d %B, %H:%M}'.format(midnight))

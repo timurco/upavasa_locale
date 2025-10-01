@@ -50,12 +50,35 @@ async def admin_get_users(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     if update.effective_user.id != settings.developer:
         return ConversationHandler.END
 
-    users = db.query(User).order_by(User.id).all()
-    msg = f"Пользователей: <b>{len(users)}</b>"
+    # Получаем общее количество пользователей
+    total_users = db.query(User).count()
+
+    # Получаем последние N пользователей
+    users = db.query(User).order_by(User.id.desc()).limit(50).all()
+
+    # Расширенный список эмодзи для разнообразия
+    user_emojis = [
+        "🥸", "😜", "😇", "🥳", "🤩", "😎", "🤓", "🧐", "🤠", "🥴",
+        "🤪", "😝", "🤗", "🤭", "🥰", "😊", "😉", "🙃", "😌", "🤨",
+        "😐", "😑", "😶", "🙄", "😏", "😣", "😥", "😮", "🤐", "😯",
+        "😪", "😫", "😴", "😌", "😛", "😜", "😝", "🤤", "😒", "😓",
+        "😔", "😕", "🙃", "🤑", "😲", "☹️", "🙁", "😖", "😞", "😟",
+        "😤", "😢", "😭", "😦", "😧", "😨", "😩", "🤯", "😬", "😰"
+    ]
+
+    msg = f"👥 <b>Пользователи бота</b>\n"
+    msg += f"📊 Всего: <b>{total_users}</b> | Показано: <b>{len(users)}</b> (последние)\n"
+    msg += f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+
     for user in users:
         tg = await context.bot.get_chat_member(user.tg_id, user.tg_id)
-        msg += f'\n{random.choice(["🥸", "😜", "😇", "🥳", "🤩"])}<b>{user.id}</b>: {tg.user.mention_html()}, '
-        msg += user.created_at.strftime("Создан: <b>(%-d %B %Yг. %H:%M:%S UTC)</b> ")
+        emoji = random.choice(user_emojis)
+
+        # Форматируем дату создания
+        created_date = user.created_at.strftime("%-d %B %Yг. %H:%M UTC")
+
+        msg += f"{emoji} <b>ID:{user.id}</b> | {tg.user.mention_html()}\n"
+        msg += f"   📅 Создан: <code>{created_date}</code>\n\n"
 
     await update.message.reply_text(
         msg,
@@ -65,7 +88,7 @@ async def admin_get_users(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     return ConversationHandler.END
 
 
-async def admin_notify(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+async def admin_preview(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     if update.effective_user.id != settings.developer:
         return ConversationHandler.END
 
