@@ -9,12 +9,13 @@ from telegram.ext import ContextTypes
 
 from bot import User, db, logger, Message, utils
 from bot.conversations import get_user_name
+from bot.services.weather import get_city
 from bot.settings import settings
 from bot.utils.humanization import gethumanday
 from bot.utils.i18n_start import set_lang
 from bot.utils.phrases import *
 from bot.utils.timezones import get_timezone, Timezone
-from fastings.calculations import calculate_fasting_days
+from fastings.calculations import calculate_most_fasting_days, calculate_fasting_days
 
 
 async def fasting_notification(
@@ -24,16 +25,15 @@ async def fasting_notification(
     #     # Кастомное время для отладки
     #     tz.time += timedelta(seconds=-15 * 3600)
 
-    f = calculate_fasting_days(tz.place)
+    f = calculate_most_fasting_days(tz.place)
     first = f.iloc[0]
 
     if user.days == 1 and not first['tithi'] == 'ekadashi':
         logger.trace('Не экадаши')
         return None
 
-    fast_day = first['starts']
-    if fast_day.hour > 18:
-        fast_day += timedelta(days=1)
+    # Use the new recommended day calculation
+    fast_day = first['recommended_day']
 
     time_zero = tz.time.replace(hour=0, minute=0, second=0, microsecond=0)
     fast_day_zero = fast_day.replace(tzinfo=None).replace(hour=0, minute=0, second=0, microsecond=0)

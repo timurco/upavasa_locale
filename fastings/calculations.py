@@ -1,4 +1,5 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
+from typing import Tuple
 
 import ephem
 import pandas as pd
@@ -74,4 +75,101 @@ def calculate_fasting_days(tz: str, period: int = 30, starts=datetime.utcnow()) 
     zon = timezone(tz)
     tithis['starts'] = tithis['starts'].apply(lambda dt: utc.localize(dt).astimezone(zon))
     tithis['ends'] = tithis['ends'].apply(lambda dt: utc.localize(dt).astimezone(zon))
+    return tithis
+
+
+def get_awake_period(dt: datetime) -> Tuple[datetime, datetime]:
+    """
+    Returns the awake period for a given datetime.
+    """
+    day_start = dt.replace(hour=5, minute=0, second=0, microsecond=0)
+    day_end = dt.replace(hour=22, minute=0, second=0, microsecond=0)
+    return day_start, day_end
+
+
+def calculate_recommended_fasting_day(tithis: pd.DataFrame) -> pd.Series:
+    """
+    Calculates the recommended fasting day based on which day has the most tithi time
+    during awake hours (get_awake_period).
+
+    Args:
+        tithis: DataFrame with tithi data (from calculate_fasting_days)
+
+    Returns:
+        pd.Series: The tithi row with recommended fasting day
+    """
+    if tithis.empty:
+        return None
+
+    # For each tithi, calculate how much time it spends in awake hours on each day
+    best_tithi = None
+    max_awake_time = timedelta(0)
+
+    for idx, tithi in tithis.iterrows():
+        start_time = tithi['starts']
+        end_time = tithi['ends']
+
+        # Get all days this tithi spans
+        current_day = start_time.date()
+        days_data = []
+
+        while current_day <= end_time.date():
+            day_start, day_end = get_awake_period(datetime.combine(current_day, datetime.min.time()).replace(tzinfo=start_time.tzinfo))
+
+            # Calculate intersection of tithi with awake period on this day
+            tithi_day_start = max(start_time, day_start)
+            tithi_day_end = min(end_time, day_end)
+
+            if tithi_day_start < tithi_day_end:
+                awake_duration = tithi_day_end - tithi_day_start
+                days_data.append((current_day, awake_duration))
+
+            current_day += timedelta(days=1)
+
+        # Find the day with maximum awake time for this tithi
+        if days_data:
+            day_with_max_time, max_time = max(days_data, key=lambda x: x[1])
+
+            if max_time > max_awake_time:
+                max_awake_time = max_time
+                best_tithi = tithi.copy()
+                # Set the recommended fasting day
+                best_tithi['recommended_day'] = datetime.combine(day_with_max_time, datetime.min.time()).replace(tzinfo=start_time.tzinfo)
+                best_tithi['awake_duration'] = max_time
+
+    return best_tithi
+
+
+def calculate_most_fasting_days(tz: str, period: int = 30, starts=datetime.utcnow()) -> pd.DataFrame:
+    """
+    Calculates fasting days with recommended day based on awake period logic.
+
+    Returns DataFrame with additional columns:
+    - recommended_day: datetime of recommended fasting day
+    - awake_duration: timedelta of tithi time in awake hours
+    """
+    tithis = calculate_fasting_days(tz, period, starts)
+
+    if not tithis.empty:
+        # Calculate recommendation for each tithi individually
+        recommendations = []
+        for i in range(len(tithis)):
+            single_tithi_df = tithis.iloc[[i]]
+            recommended = calculate_recommended_fasting_day(single_tithi_df)
+            if recommended is not None:
+                recommendations.append({
+                    'recommended_day': recommended['recommended_day'],
+                    'awake_duration': recommended['awake_duration']
+                })
+            else:
+                tithi = tithis.iloc[i]
+                recommendations.append({
+                    'recommended_day': tithi['starts'].replace(hour=0, minute=0, second=0, microsecond=0),
+                    'awake_duration': timedelta(0)
+                })
+
+        # Add recommendations to DataFrame
+        rec_df = pd.DataFrame(recommendations)
+        tithis = pd.concat([tithis.reset_index(drop=True), rec_df], axis=1)
+
     return tithis
