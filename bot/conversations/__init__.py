@@ -8,7 +8,8 @@ from bot.utils.i18n_start import t
 from bot.utils.phrases import all_days_string
 
 LOCATION, DAYS, EKADASHI, ALLDAYS, ZERODAYS, \
-CANCEL, DONE, SET_LOCATION, SET_DAYS, YES, NO, LOC_CONFIRMATION = range(12)
+CANCEL, DONE, SET_LOCATION, SET_DAYS, YES, NO, LOC_CONFIRMATION, \
+ADMIN_MESSAGE, ADMIN_CONFIRM = range(14)
 
 
 def get_confirm_keyboard():

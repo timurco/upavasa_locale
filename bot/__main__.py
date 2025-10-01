@@ -6,6 +6,7 @@ sys.path.append(str(Path(__file__).parents[1]))
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, CallbackQueryHandler
 
 from bot.conversations.admin_commands import *
+from bot.conversations import ADMIN_MESSAGE, ADMIN_CONFIRM
 from bot.conversations.commands import *
 from bot.conversations.days import *
 from bot.conversations.fasting import *
@@ -20,10 +21,29 @@ application.add_handler(CommandHandler('stop', stop))
 application.add_handler(CommandHandler('get_fasting', demand_fasting))
 # admin commands
 application.add_handler(CommandHandler('admin_cancel', admin_cancel))
-application.add_handler(CommandHandler('admin_messages', admin_messages))
 application.add_handler(CommandHandler('admin_notify', admin_notify))
 application.add_handler(CommandHandler('admin_tithi', admin_tithi))
 application.add_handler(CommandHandler('admin_get_users', admin_get_users))
+
+# admin send conversation
+application.add_handler(
+    ConversationHandler(
+        entry_points=[CommandHandler('admin_send', admin_send_start)],
+        states={
+            ADMIN_MESSAGE: [
+                MessageHandler(filters.TEXT & ~filters.COMMAND, admin_send_message),
+            ],
+            ADMIN_CONFIRM: [
+                CallbackQueryHandler(admin_send_confirm, pattern="^admin_send_confirm$"),
+                CallbackQueryHandler(admin_send_confirm, pattern="^admin_send_cancel$"),
+            ],
+        },
+        fallbacks=[
+            CommandHandler("cancel", admin_send_cancel),
+            CommandHandler("admin_send", admin_send_start),
+        ]
+    )
+)
 
 application.add_handler(
     ConversationHandler(
