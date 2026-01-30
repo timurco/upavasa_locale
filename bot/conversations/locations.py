@@ -53,6 +53,10 @@ async def update_location(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 
 
 async def location(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    # Ignore live location updates (edited_message)
+    if update.edited_message:
+        return ConversationHandler.END
+
     user = db.query(User).filter_by(tg_id=update.effective_user.id).first()
     i18n.set("locale", user.lang_code if user else update.effective_user.language_code)
 
@@ -82,6 +86,10 @@ async def location(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 
 async def set_location(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    # Ignore live location updates (edited_message)
+    if update.edited_message:
+        return ConversationHandler.END
+
     if not update.message.location and update.message.text:
         context.user_data['skip_days'] = True
         return await text_location(update, context)

@@ -3,12 +3,18 @@ Description=UpavasaBot
 After=network.target
 
 [Service]
+Type=simple
 ExecStart=/root/upavasabot/venv/bin/python bot
-ExecReload=/root/upavasabot/venv/bin/python bot
 WorkingDirectory=/root/upavasabot
-KillMode=process
+# Runtime settings
+RuntimeMaxSec=infinity
+# Graceful shutdown settings
+TimeoutStopSec=30
+KillMode=mixed
+KillSignal=SIGINT
+# Restart settings
 Restart=always
-RestartSec=5
+RestartSec=10
 
 [Install]
 WantedBy=multi-user.target

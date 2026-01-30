@@ -3,6 +3,7 @@
 *.pyc
 *.psd
 # frontend
+tmp/
 
 # exception to the rule
 !tmp/.gitkeep
