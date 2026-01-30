@@ -1,0 +1,23 @@
+fr:
+  help: |
+    %{my_name}
+    %{mission}
+    <b>Les commandes suivantes sont disponibles :</b>
+    • /help - Informations sur ces commandes
+    • /start - Commencer à ajouter des paramètres à nouveau ou modifier les actuels (Emplacement et jour)
+    • /cancel - Annuler la saisie de données
+    • /update_days - Mettre à jour les jours de jeûne. Ekadashi, ou Ekadashi, Purnima et Amavasya
+    • /update_location - Mettre à jour votre emplacement
+    • /get_fasting - Calculer et obtenir une liste des jeûnes à venir selon votre emplacement (<i>il y a une restriction - pas plus d'une demande par 10 minutes.</i>)
+    • /stop - Vous retirer de la liste de diffusion
+    • /donate - Afficher où vous pouvez faire un don
+  donate_jamalpur: |
+    Un projet très inspirant est actuellement en construction
+    intitulé <a href='https://anandasambhuti.org/ways-to-donate/'>Ananda Sambhuti</a> !
+    Je serais très heureux si vous pouviez le soutenir ! 🙏
+    Dans les commentaires de paiement, vous pouvez ajouter que vous venez du bot Upavas. Merci !
+
+    <b>Voici le lien :</b>
+    https://anandasambhuti.org/ways-to-donate/
+
+

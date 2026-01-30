@@ -1,0 +1,52 @@
+sv:
+  my_name: Jag heter <b>%{name}</b>.
+  amavasya_full: <b>Amavasya</b> 🌑 (Nymåne)
+  purnima_full: <b>Purnima</b> 🌕 (Fullmåne)
+  ekadashi_full: <b>Ekadashi</b> 🌘 – elfte dagen efter nymåne eller fullmåne, den mest gynnsamma dagen för fasta
+  tithi_description: >-
+    Tithi start- och sluttider:
+  can_stop: Du kan avregistrera dig från meddelandelistan när som helst genom att använda kommandot /stop.
+  mission: >
+    Jag är här för att räkna fastedagarna
+    (<i>Ekadashi, Amavasya, Purnima</i>)
+    enligt din plats.
+  start_choose_location: >
+    Vänligen klicka på gemet (där filer vanligtvis bifogas)
+    och välj <b>Plats</b>
+    eller helt enkelt <b>skriv in stadens namn</b> eller plats
+  location_first: För att börja, lägg till en plats genom kommandot /start
+  ready_to_send: En dag före %{days} kommer jag att skicka en påminnelse till dig.
+  to_danate: Om du vill donera, vänligen klicka här för detaljer. /donate 🙃
+  days_update: >
+    Du kan uppdatera de dagar du faster när som helst genom kommandot /update_days
+  start_choose_day: >
+    %{and_now}, låt oss välja fastedagarna för vilka du vill få meddelanden.
+  location_update: >
+    Du kan uppdatera din plats när som helst genom kommandot /update_location
+  set_location: Din plats har uppdaterats!
+  no_user: >
+    Du är inte på min lista. Så det finns inget att stoppa här.
+    Men om du vill kan du starta meddelanden via /start
+  no_send: >-
+    Jag kommer inte att skicka meddelanden till dig, men du kan använda kommandot /get_fasting
+    när som helst för att få en lista över kommande fastedagar enligt din plats!
+  stop: Jag har avbrutit din meddelandeprenumeration..
+  again: Tryck på /start om du vill börja om
+  try_again: Försök igen!
+  something_wrong: Något är fel med denna förfrågan
+  check_location: Kontrollera om jag hittade din plats korrekt?
+  no_answer: >
+    Utan svarsalternativ kan jag tyvärr inte beräkna fastedagarna
+  to_early: >
+    Snälla överbelasta mig inte så ofta med beräkningar.
+    Dessa siffror, sinus, cosinus ... Detta börjar redan göra ont i mitt huvud.
+    Vänta några minuter!
+  meet_first: |
+    Först behöver jag din plats och vilka dagar du vill fasta.
+    Tryck på /start för att börja.
+  tithi_answer: |-
+    Nästa gynnsamma fastedagar för <b>%{place}</b> (UTC%{utc}):
+  tithi_wait: Vänta en sekund, jag tittar på himlen. Behöver göra beräkningarna... X*y*sin*cos*tan*E*pi/2...
+  location_error: |
+    Något är fel med koordinaterna. Jag kan inte beräkna.
+    Försök att uppdatera din plats genom kommandot /update_location',

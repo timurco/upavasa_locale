@@ -1,0 +1,52 @@
+de:
+  my_name: Ich heiße <b>%{name}</b>.
+  amavasya_full: <b>Amavasya</b> 🌑 (Neumond)
+  purnima_full: <b>Purnima</b> 🌕 (Vollmond)
+  ekadashi_full: <b>Ekadashi</b> 🌘 – elfter Tag nach Neumond oder Vollmond, der günstigste Tag zum Fasten
+  tithi_description: >-
+    Die Start- und Endzeiten des Tithi:
+  can_stop: Sie können sich jederzeit von der Benachrichtigungsliste abmelden, indem Sie den Befehl /stop verwenden.
+  mission: >
+    Ich bin hier, um die Fastentage zu zählen
+    (<i>Ekadashi, Amavasya, Purnima</i>)
+    entsprechend Ihrem Standort.
+  start_choose_location: >
+    Bitte klicken Sie auf die Büroklammer (wo Dateien normalerweise angehängt werden)
+    und wählen Sie <b>Standort</b>
+    oder geben Sie einfach <b>den Namen der Stadt</b> oder des Ortes ein
+  location_first: Um zu beginnen, fügen Sie einen Standort über den Befehl /start hinzu
+  ready_to_send: Einen Tag vor %{days} werde ich Ihnen eine Erinnerung senden.
+  to_danate: Wenn Sie spenden möchten, klicken Sie bitte hier für Details. /donate 🙃
+  days_update: >
+    Sie können die Tage, an denen Sie fasten, jederzeit über den Befehl /update_days aktualisieren
+  start_choose_day: >
+    %{and_now}, wählen wir die Fastentage aus, für die Sie Benachrichtigungen erhalten möchten.
+  location_update: >
+    Sie können Ihren Standort jederzeit über den Befehl /update_location aktualisieren
+  set_location: Ihr Standort wurde aktualisiert!
+  no_user: >
+    Sie sind nicht auf meiner Liste. Es gibt also nichts zu stoppen.
+    Aber wenn Sie möchten, können Sie Benachrichtigungen über /start starten
+  no_send: >-
+    Ich werde Ihnen keine Benachrichtigungen senden, aber Sie können den Befehl /get_fasting
+    jederzeit verwenden, um eine Liste der kommenden Fastentage gemäß Ihrem Standort zu erhalten!
+  stop: Ich habe Ihr Benachrichtigungsabonnement storniert..
+  again: Drücken Sie /start, wenn Sie neu beginnen möchten
+  try_again: Versuchen Sie es nochmal!
+  something_wrong: Etwas stimmt mit dieser Anfrage nicht
+  check_location: Überprüfen Sie, ob ich Ihren Standort korrekt gefunden habe?
+  no_answer: >
+    Ohne Antwortoptionen kann ich leider die Fastentage nicht berechnen
+  to_early: >
+    Bitte belasten Sie mich nicht so oft mit Berechnungen.
+    Diese Zahlen, Sinus, Kosinus ... Das fängt schon an, meinen Kopf zu schmerzen.
+    Warten Sie ein paar Minuten!
+  meet_first: |
+    Zuerst brauche ich Ihren Standort und die Tage, an denen Sie fasten möchten.
+    Drücken Sie /start, um zu beginnen.
+  tithi_answer: |-
+    Die nächsten günstigen Fastentage für <b>%{place}</b> (UTC%{utc}):
+  tithi_wait: Warten Sie eine Sekunde, ich schaue zum Himmel. Muss die Berechnungen durchführen... X*y*sin*cos*tan*E*pi/2...
+  location_error: |
+    Etwas stimmt nicht mit den Koordinaten. Ich kann nicht berechnen.
+    Versuchen Sie, Ihren Standort über den Befehl /update_location zu aktualisieren',

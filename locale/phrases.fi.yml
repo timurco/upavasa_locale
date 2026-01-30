@@ -1,0 +1,52 @@
+fi:
+  my_name: Nimeni on <b>%{name}</b>.
+  amavasya_full: <b>Amavasya</b> 🌑 (Uusikuu)
+  purnima_full: <b>Purnima</b> 🌕 (Täysikuu)
+  ekadashi_full: <b>Ekadashi</b> 🌘 – yhdestoista päivä uusikuun tai täysikuun jälkeen, kaikkein otollisin päivä paastoamiseen
+  tithi_description: >-
+    Tithin aloitus- ja lopetusajat:
+  can_stop: Voit peruuttaa ilmoituslistan tilauksen milloin tahansa käyttämällä komentoa /stop.
+  mission: >
+    Olen täällä laskemassa paastopäiviä
+    (<i>Ekadashi, Amavasya, Purnima</i>)
+    sijaintisi mukaan.
+  start_choose_location: >
+    Napsauta kiinni liitettyjä tiedostoja (missä tiedostot yleensä kiinnitetään)
+    ja valitse <b>Sijainti</b>
+    tai yksinkertaisesti <b>kirjoita kaupungin nimi</b> tai sijainti
+  location_first: Aloittaaksesi lisää sijainti komennolla /start
+  ready_to_send: Päivää ennen %{days} lähetän sinulle muistutuksen.
+  to_danate: Jos haluat lahjoittaa, napsauta tästä yksityiskohdat. /donate 🙃
+  days_update: >
+    Voit päivittää päivät jolloin paastoat milloin tahansa komennolla /update_days
+  start_choose_day: >
+    %{and_now}, valitaan paastopäivät joiden ilmoituksia haluat saada.
+  location_update: >
+    Voit päivittää sijaintisi milloin tahansa komennolla /update_location
+  set_location: Sijaintisi on päivitetty!
+  no_user: >
+    Et ole listallani. Joten täällä ei ole mitään pysäytettävää.
+    Mutta jos haluat, voit aloittaa ilmoitukset komennolla /start
+  no_send: >-
+    En lähetä sinulle ilmoituksia, mutta voit käyttää komentoa /get_fasting
+    milloin tahansa saadaksesi luettelon tulevista paastopäivistä sijaintisi mukaan!
+  stop: Peruutin ilmoitustilauksesi..
+  again: Paina /start jos haluat aloittaa uudelleen
+  try_again: Yritä uudelleen!
+  something_wrong: Jokin on vialla tässä pyynnössä
+  check_location: Tarkista löysinkö sijaintisi oikein?
+  no_answer: >
+    Ilman vastausvaihtoehtoja en valitettavasti voi laskea paastopäiviä
+  to_early: >
+    Älä kuormita minua liian usein laskuilla.
+    Nämä luvut, sinukset, kosinukset ... Tämä alkaa jo satuttaa päätäni.
+    Odota muutama minuutti!
+  meet_first: |
+    Ensinnäkin tarvitsen sijaintisi ja päivät jolloin haluat paastota.
+    Paina /start aloittaaksesi.
+  tithi_answer: |-
+    Seuraavat otolliset paastopäivät paikassa <b>%{place}</b> (UTC%{utc}):
+  tithi_wait: Odota sekunti, katson taivaalle. Tarvitset tehdä laskelmat... X*y*sin*cos*tan*E*pi/2...
+  location_error: |
+    Jokin on vialla koordinaateissa. En voi laskea.
+    Yritä päivittää sijaintisi komennolla /update_location',

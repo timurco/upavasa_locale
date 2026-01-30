@@ -1,0 +1,23 @@
+pl:
+  help: |
+    %{my_name}
+    %{mission}
+    <b>Dostępne są następujące polecenia:</b>
+    • /help - Informacje o tych poleceniach
+    • /start - Zacznij ponownie dodawać ustawienia lub edytuj obecne (Lokalizacja i dzień)
+    • /cancel - Anuluj wprowadzanie danych
+    • /update_days - Zaktualizuj dni postu. Ekadashi, lub Ekadashi, Purnima i Amavasya
+    • /update_location - Zaktualizuj swoją lokalizację
+    • /get_fasting - Oblicz i uzyskaj listę nadchodzących postów zgodnie z Twoją lokalizacją (<i>istnieje ograniczenie - nie więcej niż 1 żądanie na 10 minut.</i>)
+    • /stop - Usuń się z listy mailingowej
+    • /donate - Pokaż gdzie możesz przekazać datek
+  donate_jamalpur: |
+    Bardzo inspirujący projekt jest obecnie w budowie
+    zatytułowany <a href='https://anandasambhuti.org/ways-to-donate/'>Ananda Sambhuti</a>!
+    Będę bardzo szczęśliwy, jeśli będziesz mógł go wesprzeć! 🙏
+    W komentarzach płatności możesz dodać, że jesteś z bota Upavas. Dziękuję!
+
+    <b>Oto link:</b>
+    https://anandasambhuti.org/ways-to-donate/
+
+

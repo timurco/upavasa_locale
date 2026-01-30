@@ -1,0 +1,23 @@
+sv:
+  help: |
+    %{my_name}
+    %{mission}
+    <b>Följande kommandon är tillgängliga:</b>
+    • /help - Information om dessa kommandon
+    • /start - Börja lägga till inställningar igen eller redigera de nuvarande (Plats och dag)
+    • /cancel - Avbryt datainmatning
+    • /update_days - Uppdatera fastedagar. Ekadashi, eller Ekadashi, Purnima och Amavasya
+    • /update_location - Uppdatera din plats
+    • /get_fasting - Beräkna och få en lista över kommande faste enligt din plats (<i>det finns en begränsning - inte fler än 1 förfrågan per 10 minuter.</i>)
+    • /stop - Ta bort dig från e-postlistan
+    • /donate - Visa var du kan donera
+  donate_jamalpur: |
+    Ett mycket inspirerande projekt är för närvarande under uppbyggnad
+    med titeln <a href='https://anandasambhuti.org/ways-to-donate/'>Ananda Sambhuti</a>!
+    Jag skulle bli mycket glad om du kunde stödja det! 🙏
+    I betalningskommentarerna kan du lägga till att du är från Upavas bot. Tack!
+
+    <b>Här är länken:</b>
+    https://anandasambhuti.org/ways-to-donate/
+
+

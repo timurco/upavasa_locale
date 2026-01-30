@@ -1,0 +1,23 @@
+fi:
+  help: |
+    %{my_name}
+    %{mission}
+    <b>Seuraavat komennot ovat saatavilla:</b>
+    • /help - Tietoa näistä komennoista
+    • /start - Aloita asetusten lisääminen uudelleen tai muokkaa nykyisiä (Sijainti ja päivä)
+    • /cancel - Peruuta tietojen syöttö
+    • /update_days - Päivitä paastopäivät. Ekadashi, tai Ekadashi, Purnima ja Amavasya
+    • /update_location - Päivitä sijaintisi
+    • /get_fasting - Laske ja saa luettelo tulevista paastoista sijaintisi mukaan (<i>on rajoitus - enintään 1 pyyntö per 10 minuuttia.</i>)
+    • /stop - Poista itsesi postituslistalta
+    • /donate - Näytä mistä voit lahjoittaa
+  donate_jamalpur: |
+    Erittäin inspiroiva projekti on parhaillaan rakenteilla
+    nimeltään <a href='https://anandasambhuti.org/ways-to-donate/'>Ananda Sambhuti</a>!
+    Olisin erittäin iloinen, jos voisit tukea sitä! 🙏
+    Maksukommentteihin voit lisätä, että olet Upavas botista. Kiitos!
+
+    <b>Tässä on linkki:</b>
+    https://anandasambhuti.org/ways-to-donate/
+
+

@@ -1,0 +1,23 @@
+pt-br:
+  help: |
+    %{my_name}
+    %{mission}
+    <b>Os seguintes comandos estão disponíveis:</b>
+    • /help - Informações sobre estes comandos
+    • /start - Comece a adicionar configurações novamente ou edite as atuais (Localização e dia)
+    • /cancel - Cancelar entrada de dados
+    • /update_days - Atualizar dias de jejum. Ekadashi, ou Ekadashi, Purnima e Amavasya
+    • /update_location - Atualizar sua localização
+    • /get_fasting - Calcular e obter uma lista de jejuns futuros de acordo com sua localização (<i>há uma restrição - não mais que 1 solicitação por 10 minutos.</i>)
+    • /stop - Remover-se da lista de e-mails
+    • /donate - Mostrar onde você pode doar
+  donate_jamalpur: |
+    Um projeto muito inspirador está atualmente em construção
+    intitulado <a href='https://anandasambhuti.org/ways-to-donate/'>Ananda Sambhuti</a>!
+    Ficarei muito feliz se você puder apoiá-lo! 🙏
+    Nos comentários do pagamento, você pode adicionar que você é do bot Upavas. Obrigado!
+
+    <b>Aqui está o link:</b>
+    https://anandasambhuti.org/ways-to-donate/
+
+
