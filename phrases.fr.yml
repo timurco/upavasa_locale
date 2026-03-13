@@ -50,3 +50,5 @@ fr:
   location_error: |
     Quelque chose ne va pas avec les coordonnées. Je ne peux pas calculer.
     Essayez de mettre à jour votre emplacement via la commande /update_location',
+  choose_language: "Choisissez votre langue"
+  language_changed: "Langue changée !"

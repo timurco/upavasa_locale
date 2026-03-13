@@ -10,6 +10,7 @@ pl:
     • /update_location - Zaktualizuj swoją lokalizację
     • /get_fasting - Oblicz i uzyskaj listę nadchodzących postów zgodnie z Twoją lokalizacją (<i>istnieje ograniczenie - nie więcej niż 1 żądanie na 10 minut.</i>)
     • /stop - Usuń się z listy mailingowej
+    • /lang - Zmień język
     • /donate - Pokaż gdzie możesz przekazać datek
   donate_jamalpur: |
     🙏 <b>Projekty, które możesz wesprzeć:</b>

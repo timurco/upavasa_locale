@@ -50,3 +50,5 @@ de:
   location_error: |
     Etwas stimmt nicht mit den Koordinaten. Ich kann nicht berechnen.
     Versuchen Sie, Ihren Standort über den Befehl /update_location zu aktualisieren',
+  choose_language: "Wählen Sie Ihre Sprache"
+  language_changed: "Sprache geändert!"

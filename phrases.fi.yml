@@ -50,3 +50,5 @@ fi:
   location_error: |
     Jokin on vialla koordinaateissa. En voi laskea.
     Yritä päivittää sijaintisi komennolla /update_location',
+  choose_language: "Valitse kielesi"
+  language_changed: "Kieli vaihdettu!"

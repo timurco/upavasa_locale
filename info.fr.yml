@@ -10,6 +10,7 @@ fr:
     • /update_location - Mettre à jour votre emplacement
     • /get_fasting - Calculer et obtenir une liste des jeûnes à venir selon votre emplacement (<i>il y a une restriction - pas plus d'une demande par 10 minutes.</i>)
     • /stop - Vous retirer de la liste de diffusion
+    • /lang - Changer la langue
     • /donate - Afficher où vous pouvez faire un don
   donate_jamalpur: |
     🙏 <b>Projets que vous pouvez soutenir :</b>

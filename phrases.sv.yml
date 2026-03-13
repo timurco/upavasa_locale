@@ -50,3 +50,5 @@ sv:
   location_error: |
     Något är fel med koordinaterna. Jag kan inte beräkna.
     Försök att uppdatera din plats genom kommandot /update_location',
+  choose_language: "Välj ditt språk"
+  language_changed: "Språk ändrat!"

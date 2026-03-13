@@ -10,6 +10,7 @@ de:
     • /update_location - Ihren Standort aktualisieren
     • /get_fasting - Berechnen und erhalten Sie eine Liste der kommenden Fasten gemäß Ihrem Standort (<i>es gibt eine Einschränkung - nicht mehr als 1 Anfrage pro 10 Minuten.</i>)
     • /stop - Sich von der Mailingliste entfernen
+    • /lang - Sprache ändern
     • /donate - Zeigen wo Sie spenden können
   donate_jamalpur: |
     🙏 <b>Projekte, die Sie unterstützen können:</b>

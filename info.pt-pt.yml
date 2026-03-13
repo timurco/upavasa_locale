@@ -10,6 +10,7 @@ pt-pt:
     • /update_location - Actualizar a sua localização
     • /get_fasting - Calcular e obter uma lista dos jejuns futuros segundo a sua localização (<i>existe uma restrição - não mais que 1 pedido por 10 minutos.</i>)
     • /stop - Remover-se da lista de correio
+    • /lang - Mudar idioma
     • /donate - Mostrar onde pode doar
   donate_jamalpur: |
     🙏 <b>Projectos que pode apoiar:</b>

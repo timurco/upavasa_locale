@@ -10,6 +10,7 @@ en:
     • /update_location - Update your location
     • /get_fasting - Calculate and get a list of upcoming fasts according to my location (<i>there is a restriction - no more than 1 request per 10 minutes.</i>) 
     • /stop - Remove yourself from mailing list
+    • /lang - Change language
     • /donate - Show where you can donate
   donate_jamalpur: |
     🙏 <b>Projects you can support:</b>

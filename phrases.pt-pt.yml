@@ -50,3 +50,5 @@ pt-pt:
   location_error: |
     Algo está errado com as coordenadas. Não consigo calcular.
     Tente actualizar a sua localização através do comando /update_location',
+  choose_language: "Escolha o seu idioma"
+  language_changed: "Idioma alterado!"

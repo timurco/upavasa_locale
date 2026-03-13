@@ -50,3 +50,5 @@ pl:
   location_error: |
     Coś jest nie tak ze współrzędnymi. Nie mogę obliczyć.
     Spróbuj zaktualizować swoją lokalizację poprzez polecenie /update_location',
+  choose_language: "Wybierz swój język"
+  language_changed: "Język zmieniony!"

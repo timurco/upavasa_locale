@@ -10,6 +10,7 @@ fi:
     • /update_location - Päivitä sijaintisi
     • /get_fasting - Laske ja saa luettelo tulevista paastoista sijaintisi mukaan (<i>on rajoitus - enintään 1 pyyntö per 10 minuuttia.</i>)
     • /stop - Poista itsesi postituslistalta
+    • /lang - Vaihda kieli
     • /donate - Näytä mistä voit lahjoittaa
   donate_jamalpur: |
     🙏 <b>Projektit, joita voit tukea:</b>

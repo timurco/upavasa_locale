@@ -10,6 +10,7 @@ sv:
     • /update_location - Uppdatera din plats
     • /get_fasting - Beräkna och få en lista över kommande faste enligt din plats (<i>det finns en begränsning - inte fler än 1 förfrågan per 10 minuter.</i>)
     • /stop - Ta bort dig från e-postlistan
+    • /lang - Byt språk
     • /donate - Visa var du kan donera
   donate_jamalpur: |
     🙏 <b>Projekt du kan stödja:</b>

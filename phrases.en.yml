@@ -50,3 +50,5 @@ en:
   location_error: |
     Something is wrong with the coordinates. I can't calculate.
     Try to update your location through the command /update_location',
+  choose_language: "Choose your language"
+  language_changed: "Language changed!"
