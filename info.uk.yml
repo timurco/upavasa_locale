@@ -23,15 +23,16 @@ uk:
       
       <b>---- 🗒 ----</b>
       Якщо у вас є запитання або ви бажаєте внести свої пропозиції щодо розвитку бота чи навіть взяти участь у його розробці, то для цього є чат <a href="https://t.me/+IJ8j_POnh0dkNWY1">Упаваса Бот – Розробка</a>.
-   donate_jamalpur: >
-      Зараз триває будівництво одного дуже надихаючого проекту, під назвою <a href="https://meditationsteps-germany.de/ru/ananda-sambhuti">Ананда Самбхуті</a>!
-      
-      Цей проект є дуже важливим для всієї нашої спільноти. Щоб дізнатися про нього детальніше, перейдіть за посиланням! 🙏
-      
-      
-      В коментарях платежу ви можете додати, що ви від бота Упаваса. Дякуємо! 🤖
-      
-      
-      <b>Отже, посилання на проект:</b>
-      
-      https://meditationsteps-germany.de/ru/ananda-sambhuti
+   donate_jamalpur: |
+      🙏 <b>Проєкти, які можна підтримати:</b>
+
+      <b>1. Ananda Sambhuti</b> — будівництво духовного центру в Джамалпурі
+      https://anandasambhuti.org/ways-to-donate/
+
+      <b>2. <a href='https://stc-maharlika.org'>STC Maharlika</a></b> — тренінг центр для сестер на Філіппінах
+      https://donorbox.org/support-the-future-generation-of-didis-stc
+
+      <b>3. Phoenix Project</b> — гуманітарний проєкт Діді в Україні
+      https://phoenixproject.org.ua/ua/volonterstvo
+
+      У коментарях платежу можеш додати, що ти від бота Упаваса. Дякуємо! 🙏

@@ -12,12 +12,17 @@ fi:
     • /stop - Poista itsesi postituslistalta
     • /donate - Näytä mistä voit lahjoittaa
   donate_jamalpur: |
-    Erittäin inspiroiva projekti on parhaillaan rakenteilla
-    nimeltään <a href='https://anandasambhuti.org/ways-to-donate/'>Ananda Sambhuti</a>!
-    Olisin erittäin iloinen, jos voisit tukea sitä! 🙏
-    Maksukommentteihin voit lisätä, että olet Upavas botista. Kiitos!
+    🙏 <b>Projektit, joita voit tukea:</b>
 
-    <b>Tässä on linkki:</b>
+    <b>1. Ananda Sambhuti</b> — hengellisen keskuksen rakentaminen Jamalpuriin
     https://anandasambhuti.org/ways-to-donate/
+
+    <b>2. <a href='https://stc-maharlika.org'>STC Maharlika</a></b> — koulutuskeskus sisarille Filippiineillä
+    https://donorbox.org/support-the-future-generation-of-didis-stc
+
+    <b>3. Phoenix Project</b> — Didin humanitaarinen projekti Ukrainassa
+    https://phoenixproject.org.ua/en/volunteering#donate
+
+    Maksukommentteihin voit lisätä, että olet Upavasa botista. Kiitos! 🙏
 
 
